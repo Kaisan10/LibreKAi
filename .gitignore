@@ -26,6 +26,7 @@ data/*.sqlite
 
 # Scripts folder (not included in repository)
 scripts/
+python-playground
 
 # Python
 __pycache__/

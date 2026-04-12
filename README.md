@@ -28,28 +28,28 @@ If you are kind enough to help fix these issues, I would be more than happy to r
 
 ## 🚀 Quick Start
 
-### 1\. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Kaisan10/LibreKAi.git
 cd LibreKAi
 ```
 
-### 2\. Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3\. Create a PostgreSQL Database
+### 3. Create a PostgreSQL Database
 
 ```bash
 psql -U postgres
 CREATE DATABASE librekai;
-\q
+q
 ```
 
-### 4\. Configure Environment Variables
+### 4. Configure Environment Variables
 
 ```bash
 cp .env.example .env
@@ -63,7 +63,7 @@ Please edit the following required fields:
   - `SITE_URL`: Your site's URL (e.g., `https://ai.example.com`).
   - `ADMIN_USERNAME`: Administrator username.
 
-### 5\. Start the Server
+### 5. Start the Server
 
 ```bash
 npm start
@@ -71,7 +71,7 @@ npm start
 
 The server will be running at `http://localhost:3008`.
 
-### 6\. Start the LLM Server (Separate Terminal)
+### 6. Start the LLM Server (Separate Terminal)
 
 ```bash
 # For llama.cpp
@@ -80,13 +80,13 @@ The server will be running at `http://localhost:3008`.
 
 Alternatively, start your preferred LLM server.
 
-### 7\. Additional Web Configuration
+### 7. Additional Web Configuration
 
 Access `http://localhost:3008/settings` in your browser to finalize additional configurations as needed.
 
 ## 📖 Documentation
 
-  - **[ENV\_CONFIG.md](https://www.google.com/search?q=ENV_CONFIG.md)**: Detailed environment variables and settings.
+  - **[ENV_CONFIG.md](https://www.google.com/search?q=ENV_CONFIG.md)**: Detailed environment variables and settings.
   - **[guide.md](guide.md)**: Administrator Guide.
   - **[docs/plugin-policy.md](https://www.google.com/search?q=docs/plugin-policy.md)**: Plugin Development Guide.
 
@@ -111,7 +111,7 @@ Settings manageable via the `/settings` page:
   - URL shortener settings
   - Security policies (CORS, CSP)
 
-For more details, see [ENV\_CONFIG.md](https://www.google.com/search?q=ENV_CONFIG.md).
+For more details, see [ENV_CONFIG.md](https://www.google.com/search?q=ENV_CONFIG.md).
 
 ## 🔌 Plugins
 
@@ -145,7 +145,7 @@ Key AGPL-3.0 requirements:
 
 ## 🤝 Contributing
 
-Pull Requests are welcome\!
+Pull Requests are welcome!
 
 ## 🙏 Acknowledgments
 
@@ -212,7 +212,7 @@ npm install
 ```bash
 psql -U postgres
 CREATE DATABASE librekai;
-\q
+q
 ```
 
 ### 4. 環境変数を設定
