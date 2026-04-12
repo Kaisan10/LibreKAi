@@ -1,0 +1,63 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Session store (file-based, legacy - now using PostgreSQL)
+sessions/
+data/sessions/
+
+# Logs
+logs/
+*.log
+
+# Data (runtime)
+data/announcements.json
+data/models.json
+data/*.bak
+data/*.backup
+data/*_backup.*
+data/*.db
+data/*.sqlite
+
+# Scripts folder (not included in repository)
+scripts/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Build
+dist/
+build/
+dist_backup/
+
+# Plugins (instance-specific, not part of LibreKAi core)
+lib/plugins/
+
+# Instance-specific files
+models
+*.deb
+
+# Development artifacts
+test.txt
+test_3009.js
+ただのメモ.md
+
+# Blog content (instance-specific)
+# All .md posts are excluded; only README.md is kept in the repository
+blogs/*.md
+!blogs/README.md
+

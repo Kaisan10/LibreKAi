@@ -1,0 +1,10 @@
+[
+    {
+        "id": "time",
+        "name": "時刻ツール",
+        "badge_name": "時刻",
+        "icon": "fa-clock",
+        "description": "AIが現在の日時を把握するためのツール。 (KAi C2.3以降でのみ使用可能...1/16現在公開されていません)",
+        "system_prompt_prefix": "今の時刻: "
+    }
+]

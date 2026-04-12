@@ -1,0 +1,497 @@
+/* ============== Sliders ============== */
+.slider-group {
+    margin-bottom: 1rem;
+}
+
+.slider-group:last-child {
+    margin-bottom: 0;
+}
+
+.slider-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.slider-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-secondary);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: solid 1px var(--border-color);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* ============== Theme Selector ============== */
+.theme-selector {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.theme-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.theme-btn.active {
+    border-color: var(--border-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+/* ============== Mode Selector ============== */
+.settings-subsection {
+    margin-bottom: 1rem;
+}
+
+.settings-subsection:last-child {
+    margin-bottom: 0;
+}
+
+.settings-label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.mode-selector {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.mode-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    border: solid 1px var(--border-color);
+}
+
+.mode-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--bg-hover);
+    color: var(--text-color);
+}
+
+.mode-btn.active {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ============== Settings Utilities ============== */
+.full-width {
+    width: 100%;
+    justify-content: center;
+}
+
+#systemPromptInput {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    resize: vertical;
+    font-family: inherit;
+}
+
+#systemPromptInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    width: fit-content;
+    margin: auto;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+/* 設定モーダル内の保存ボタン */
+.settings-save-btn {
+    width: auto;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    border-radius: 100px;
+}
+
+.btn-secondary {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-secondary);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: fit-content;
+    margin: auto;
+}
+
+#settingsCancelProBtn {
+    margin-bottom: 0.4rem;
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+.btn-secondary:disabled {
+    background-color: var(--bg-secondary) !important;
+    cursor: not-allowed;
+}
+
+.btn-danger {
+    padding: 0.5rem 1rem;
+    background-color: var(--error-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: fit-content;
+    margin: auto;
+}
+
+@media (data-theme="dark") {
+    .btn-danger:hover {
+        backdrop-filter: brightness(1.1) !important;
+    }
+
+    .btn-danger:disabled {
+        backdrop-filter: brightness(0.9) !important;
+        cursor: not-allowed;
+    }
+}
+
+@media (data-theme="light") {
+    .btn-danger:hover {
+        backdrop-filter: brightness(0.9) !important;
+    }
+
+    .btn-danger:disabled {
+        backdrop-filter: brightness(1.1) !important;
+        cursor: not-allowed;
+    }
+}
+
+
+/* ============== Desktop Chat Header ============== */
+.desktop-chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem;
+    background: var(--bg-color);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    box-shadow: 0 8px 12px rgb(from var(--bg-color) r g b / 100%);
+}
+
+.main-content.new-chat .desktop-chat-header {
+    display: none;
+}
+
+.desktop-chat-header.hidden {
+    display: none;
+}
+
+.chat-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px;
+    cursor: pointer;
+    padding: 2px 4px;
+    transition: all 0.2s;
+    border-radius: var(--radius-sm) 0.25rem 0.25rem var(--radius-sm);
+    height: 1.75rem;
+}
+
+.chat-title:hover {
+    background: var(--item-hover-bg);
+}
+
+.chat-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 0.5rem;
+}
+
+.btn-header-menu {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem var(--radius-sm) var(--radius-sm) 0.25rem;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+    height: 1.75rem;
+    width: 1.4rem;
+}
+
+@media (max-width: 768px) {
+    .btn-header-menu {
+        margin-left: 0.5rem;
+    }
+}
+
+.btn-header-menu:hover {
+    background-color: var(--item-hover-bg);
+    color: var(--text-color);
+}
+
+.chat-title-input {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0 0 0 0.5rem;
+    color: var(--text-color);
+    background-color: var(--item-hover-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius-sm) 0.25rem 0.25rem var(--radius-sm);
+    padding: 1px 5px;
+    width: 300px;
+    outline: none;
+    font-family: inherit;
+}
+
+.chat-title-area {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.btn-share {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-share:hover {
+    background: var(--border-color);
+    border-color: color-mix(in srgb, var(--border-color) 70%, var(--text-color) 30%);
+}
+
+.btn-share i {
+    color: var(--text-muted);
+}
+
+.btn-fork {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #8b5cf6, #d946ef);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btn-fork:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-fork.hidden {
+    display: none;
+}
+
+/* ============== Share Modal ============== */
+.share-modal {
+    max-width: 500px;
+}
+
+.share-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.share-toggle-area {
+    padding: 1rem;
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.share-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.share-details.hidden {
+    display: none;
+}
+
+.url-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.share-url-input {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.share-select,
+.settings-select {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    margin-top: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    appearance: none;
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hide input area and other controls in shared preview mode */
+.shared-preview-mode .input-area-wrapper,
+.shared-preview-mode .btn-history-menu,
+.shared-preview-mode #shareBtnDesktop,
+.shared-preview-mode #shareBtnMobile {
+    display: none !important;
+}
+
+/* Response handling for mobile-header vs desktop-header */
+@media (max-width: 768px) {
+    .desktop-chat-header {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-header {
+        display: none !important;
+    }
+}

@@ -1,0 +1,28 @@
+LibreKAi
+Copyright 2026 LibreKAi Contributors
+
+This product includes software developed by LibreKAi Contributors.
+
+---
+
+This product includes the following third-party software:
+
+ejs
+Copyright 2012 TJ Holowaychuk
+Licensed under the Apache License, Version 2.0
+https://github.com/mde/ejs
+
+session-file-store (previously used, removed)
+Copyright 2015 Roland Frey
+Licensed under the Apache License, Version 2.0
+https://github.com/valery-barysok/session-file-store
+
+sharp
+Copyright 2013 Lovell Fuller and contributors
+Licensed under the Apache License, Version 2.0
+https://github.com/lovell/sharp
+
+dotenv
+Copyright 2015 Scott Motte
+Licensed under the BSD 2-Clause License
+https://github.com/motdotla/dotenv

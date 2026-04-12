@@ -1,0 +1,78 @@
+/* Dark Forest Theme */
+[data-custom-theme="chat_shitai"] body {
+    --primary-color: #29292b !important;
+    --primary-hover: #393a3c !important;
+    --primary-color-active: #263470 !important;
+    --bg-color: #212121 !important;
+    --sidebar-bg: #181818 !important;
+    --card-bg: rgba(19, 20, 24, 0.7) !important;
+    --bg-primary: #13161f !important;
+    --bg-secondary: #47484b !important;
+    --bg-hover: #52535e !important;
+    --text-color: #e0e0e0 !important;
+    --text-muted: #c0c0c0 !important;
+    --border-color: transparent !important;
+    --item-hover-bg: #424242 !important;
+    --user-profile-bg: #3d3d3d !important;
+}
+
+.btn-new-chat {
+    background-color: transparent !important;
+    padding: 2px !important;
+}
+
+.history-header .history-label {
+    color: #959595;
+}
+
+.welcome-message h2 {
+    color: #fff;
+    font-weight: 400;
+    -webkit-text-fill-color: unset;
+    background-clip: unset;
+    background: transparent;
+}
+
+.input-area {
+    background: #303030;
+}
+
+.main-content.new-chat .suggestion-cards {
+    display: none;
+}
+
+i.fa-solid.fa-tags {
+    display: none;
+}
+
+.tag-item,
+.history-item {
+    padding: 0.4rem 0.5rem;
+    font-size: 15.5px;
+    border-left: transparent;
+}
+
+.history-item:hover {
+    transform: translateX(0);
+}
+
+.user-info-sidebar {
+    padding: 0.5rem;
+}
+
+.user-profile-compact {
+    background-color: transparent;
+    width: calc(var(--sidebar-width) - 1rem);
+}
+
+.user-points-compact {
+    color: var(--text-muted);
+}
+
+.welcome-logo {
+    display: none;
+}
+
+.history-item::before {
+    display: none;
+}

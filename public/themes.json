@@ -1,0 +1,12 @@
+[
+    {
+        "id": "default",
+        "name": "デフォルト",
+        "css": ""
+    },
+    {
+        "id": "chat_shitai",
+        "name": "チャットシターイー",
+        "css": "/themes/chat_shitai.css"
+    }
+]

@@ -1,0 +1,670 @@
+/* ============== Input Area ============== */
+
+.input-area-wrapper {
+    padding: 1rem 2rem 0.75rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    align-self: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Mobile: keep the input bar fixed and visible */
+@media (max-width: 768px) {
+    .input-area-wrapper {
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        align-self: stretch;
+        margin: 0;
+        padding: 1rem;
+        background: var(--bg-color);
+        z-index: 100;
+        box-shadow: none;
+    }
+
+    .input-area {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* Give chat area space so content doesn't hide behind the fixed input */
+    .chat-container {
+        padding-bottom: 2rem;
+    }
+
+    .main-content {
+        padding-bottom: 0;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .input-area-wrapper {
+        padding-bottom: 0.5rem;
+    }
+}
+
+/* 新規チャット時はウェルカムメッセージと入力エリアを中央配置 */
+.main-content.new-chat {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* chat-containerを画面中央に配置 */
+.main-content.new-chat .chat-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.main-content.new-chat .welcome-message {
+    margin: 0;
+}
+
+.main-content.new-chat .input-area-wrapper {
+    flex-shrink: 0;
+}
+
+/* Desktop: center welcome + input vertically on new chat */
+@media (min-width: 769px) {
+    .main-content.new-chat {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main-content.new-chat .chat-container {
+        flex: 0 0 auto;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2rem;
+    }
+
+    .main-content.new-chat .input-area-wrapper {
+        position: static;
+        align-self: center;
+    }
+}
+
+/* 新規チャット時は不要な要素を非表示 */
+.main-content.new-chat .messages-list,
+.main-content.new-chat #loading,
+.main-content.new-chat #errorMessage {
+    display: none;
+}
+
+/* モバイル時の調整 */
+@media (max-width: 768px) {
+    .main-content.new-chat .chat-container {
+        padding: 1rem;
+    }
+
+    .main-content.new-chat .input-area-wrapper {
+        position: fixed;
+    }
+}
+
+/* モバイル横向き（Landscape）時の新規チャット画面調整 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .main-content.new-chat {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main-content.new-chat .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: row !important;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+        padding: 1rem 5vw !important;
+        overflow: hidden;
+    }
+
+    .main-content.new-chat .welcome-message {
+        flex: 1;
+        margin: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-content.new-chat .suggestion-cards {
+        flex: 1;
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main-content.new-chat .suggestion-top,
+    .main-content.new-chat .suggestion-bottom {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+
+    .main-content.new-chat .suggestion-card {
+        width: 9rem;
+        max-width: 45%;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .main-content.new-chat .input-area-wrapper {
+        width: 80%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0.75rem 1rem;
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        flex-shrink: 0;
+    }
+
+    /* JSでクラスが付与された時のレイアウト調整 */
+    .input-area.landscape-layout {
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0.25rem !important;
+        padding: 0.555555555555555555555555555rem !important;
+        border-radius: 100px !important;
+    }
+
+    .input-area.landscape-layout::before {
+        border-radius: 100px !important;
+    }
+
+    .input-area.landscape-layout .textarea-container {
+        flex: 1;
+        padding: 0 0.5rem !important;
+    }
+
+    .input-area.landscape-layout .input-controls {
+        display: none;
+    }
+
+    .input-area.landscape-layout .input-controls-left,
+    .input-area.landscape-layout .input-controls-right {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-bottom: 0;
+    }
+
+    .main-content.new-chat .welcome-logo img {
+        width: 160px !important;
+        height: auto !important;
+    }
+
+    .main-content.new-chat .welcome-message h2 {
+        font-size: 1.1rem !important;
+        margin-top: 0.25rem;
+    }
+
+    .main-content.new-chat .input-footer,
+    .main-content.new-chat .mobile-header-title-container {
+        display: none;
+    }
+}
+
+.input-area-wrapper.drag-over .input-area {
+    border: 2px dashed var(--primary-color);
+    background-color: rgba(59, 130, 246, 0.05);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.image-preview-area:not(.hidden)+.input-area {
+    border-radius: 0 0 26px 26px;
+}
+
+.api-stat {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.input-area {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 26px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transition: border-color 0.2s ease;
+}
+
+.textarea-container {
+    flex: 1;
+    min-height: 24px;
+    padding: 0.5rem;
+}
+
+textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    padding: 0;
+    max-height: 200px;
+    line-height: 1.5;
+    transition: height 0.15s ease-out;
+}
+
+/* FLIP animation helper */
+.no-transition {
+    transition: none !important;
+}
+
+/* --- Live Markdown Preview --- */
+.markdown-preview {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 0.5rem 0 0 0;
+    border-top: 1px dashed var(--border-color);
+    margin-top: 0.5rem;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.markdown-preview p {
+    margin: 0;
+}
+
+.markdown-preview code {
+    background-color: var(--bg-hover);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.markdown-preview pre {
+    background-color: var(--bg-hover);
+    padding: 0.5rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 0.25rem 0;
+}
+
+.markdown-preview strong,
+.markdown-preview em {
+    color: var(--text-color);
+}
+
+.input-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-controls-left {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.input-controls-right {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-send {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-send:disabled {
+    background-color: var(--secondary-color);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-send:not(:disabled):hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+.btn-cancel {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.btn-cancel:hover {
+    opacity: 0.9;
+}
+
+.input-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding: 0 0.5rem;
+    text-align: center;
+}
+
+.terms-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.terms-check a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* ============== Loading & Error ============== */
+
+#loading {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-muted);
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--card-bg);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 0.5rem;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin: 1rem auto;
+    animation: slideDown 0.3s ease-out;
+}
+
+.error-content {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.error-icon {
+    color: var(--error-color);
+    font-size: 1.25rem;
+    margin-top: 0.1rem;
+}
+
+.error-text strong {
+    display: block;
+    color: var(--error-color);
+    margin-bottom: 0.25rem;
+}
+
+.error-text p {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.error-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    justify-content: flex-end;
+}
+
+.btn-retry {
+    background-color: var(--error-color);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-dismiss {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+/* ============== Legal Pages (Terms & Privacy & etc...) ============== */
+
+.legal-body {
+    overflow-y: auto;
+    /* Allow scrolling for legal pages */
+    height: auto;
+    padding: 2rem;
+    display: block;
+}
+
+.legal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: none;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.legal-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.legal-container h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.legal-container p,
+.legal-container ul {
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+.legal-container ul {
+    padding-left: 1.5rem;
+}
+
+.legal-container li {
+    margin-bottom: 0.5rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ============== Pages List (Tile UI) ============== */
+
+.pages-list-page {
+    max-width: 900px;
+}
+
+.section-desc {
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.pages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.api-chart-container {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    height: 350px;
+    position: relative;
+    display: flex;
+    padding-bottom: 2.5rem;
+}
+
+.api-chart-container canvas {
+    flex: 1;
+    min-height: 0;
+    width: 100% !important;
+}
+
+.api-chart-title {
+    margin: 0;
+}
+
+.page-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-hover);
+}
+
+.page-card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.25rem;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.page-card:hover .page-card-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.page-card-info {
+    flex-grow: 1;
+}
+
+.page-card-info h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.page-card-info p {
+    margin: 0 !important;
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
+
+.page-card-arrow {
+    margin-left: 1rem;
+    color: var(--text-muted);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.page-card:hover .page-card-arrow {
+    transform: translateX(4px);
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+@media (max-width: 640px) {
+    .pages-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .page-card {
+        padding: 1.25rem;
+    }
+}
+

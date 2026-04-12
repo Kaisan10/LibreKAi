@@ -1,0 +1,793 @@
+    <!-- Terms Popup Modal -->
+    <div id="termsModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>利用規約への同意</h2>
+            </div>
+            <div class="modal-body">
+                <p>本サービスを利用する前に、利用規約への同意が必要です。</p>
+                <div class="terms-preview">
+                    <p><strong>1. サービスの性質</strong>: 本サービスはベータ版であり、回答の正確性を保証しません。</p>
+                    <p><strong>2. データの利用</strong>: 入力データはAIの改善に利用される場合があります。</p>
+                    <p><strong>3. 禁止事項</strong>: 個人情報の入力や悪用は禁止されています。</p>
+                    <p><a href="terms.html" target="_blank">利用規約全文を読む</a></p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="agreeBtn" class="btn-primary" aria-label="利用規約に同意して利用開始">同意して利用開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="confirmTitle">確認</h2>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">よろしいですか？</p>
+            </div>
+            <div class="modal-actions">
+                <button id="confirmCancelBtn" class="btn-secondary">キャンセル</button>
+                <button id="confirmOkBtn" class="btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="alertModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="alertTitle">お知らせ</h2>
+            </div>
+            <div class="modal-body">
+                <p id="alertMessage"></p>
+            </div>
+            <div class="modal-actions">
+                <button id="alertOkBtn" class="btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pro Required Modal -->
+    <div id="proRequiredModal" class="modal-overlay hidden">
+        <div class="modal-content pro-required-modal">
+            <div class="modal-header">
+                <h2>Proプラン限定機能</h2>
+                <button id="closeProModalBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="pro-modal-icon">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <p id="proModalMessage">この機能を利用するにはProプランへのアップグレードが必要です。</p>
+                <div class="pro-features-summary">
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> 埋め込みサイト管理</li>
+                        <li><i class="fa-solid fa-check"></i> 高度なパラメータ調整</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelProModalBtn" class="btn-secondary">キャンセル</button>
+                <button id="upgradeProModalBtn" class="btn-primary btn-pro-upgrade">
+                    <i class="fa-solid fa-crown"></i> Proにアップグレード
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secret Settings Modal -->
+    <div id="secretSettingsModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-user-secret"></i> 隠し設定</h2>
+                <button id="closeSecretSettingsBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h3>ズーム率</h3>
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <span>Zoom</span>
+                            <span id="secretZoomValue">100%</span>
+                        </div>
+                        <input type="range" id="secretZoomSlider" min="50" max="200" step="5" value="100">
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3>画面の向き</h3>
+                    <select id="secretRotateSelect"
+                        style="width: 100%; padding: 0.75rem; border-radius: var(--radius-sm); background: var(--bg-secondary); color: var(--text-color); border: 1px solid var(--border-color); font-size: 1rem;">
+                        <option value="0">通常（上）</option>
+                        <option value="90">右向き</option>
+                        <option value="180">逆さま（下）</option>
+                        <option value="270">左向き</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="resetSecretSettingsBtn" class="btn-secondary">リセット</button>
+                <button id="saveSecretSettingsBtn" class="btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal-overlay hidden">
+        <div class="modal-content share-modal">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-share-nodes"></i> チャットを共有</h2>
+                <button id="closeShareModalBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="share-desc">共有を有効にすると、リンクを知っている人全員がこのチャットを閲覧できるようになります。</p>
+
+                <div class="share-toggle-area">
+                    <label class="toggle-switch-label">
+                        <input type="checkbox" id="sharePublicCheckbox" class="checkbox">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-text">共有リンクを有効にする</span>
+                    </label>
+                </div>
+
+                <div id="shareDetails" class="share-details hidden">
+                    <div class="share-url-container">
+                        <div class="form-label">共有リンク</div>
+                        <div class="url-input-group">
+                            <input type="text" id="shareUrlInput" readonly class="share-url-input">
+                            <button id="copyShareUrlBtn" class="btn-secondary" title="URLをコピー">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="share-settings-group">
+                        <div class="form-label">有効期限</div>
+                        <select id="shareExpirySelect" class="share-select">
+                            <option value="">無期限</option>
+                            <option value="1h">1時間</option>
+                            <option value="1d">1日</option>
+                            <option value="7d">7日</option>
+                            <option value="30d">30日</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="saveShareSettingsBtn" class="btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maintenance Overlay -->
+    <div id="maintenanceOverlay" class="modal-overlay maintenance-overlay hidden">
+        <div class="modal-content maintenance-card">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-wrench"></i> メンテナンス中</h2>
+            </div>
+            <div class="modal-body">
+                <div class="maintenance-icon-wrapper">
+                    <i class="fa-solid fa-server main-server-icon"></i>
+                    <i class="fa-solid fa-triangle-exclamation warning-badge"></i>
+                </div>
+                <p class="maintenance-main-msg">現在、メンテナンスによりKAiをご利用いただけません。</p>
+                <div class="maintenance-reason-box">
+                    <p class="reason-label">状態:</p>
+                    <p id="maintenanceReason" class="reason-text">システム状況を確認中...</p>
+                </div>
+                <p class="maintenance-sub-msg">復旧次第、自動的に利用可能になります。恐れ入りますが、復旧までしばらくお待ちください。<br>数時間たっても復旧しない場合は<a
+                        href="https://forum.bac0n.f5.si">フォーラム</a>で報告してください。
+            </div>
+            <div class="maintenance-footer">
+                <button id="maintenanceReloadBtn" class="btn-secondary" style="margin-bottom: 0.5rem;">
+                    <i class="fa-solid fa-rotate-right"></i> 再読み込み
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="imageModal" class="image-modal-overlay hidden">
+        <div class="image-modal-content">
+            <img id="imageModalImg" src="" alt="Full size image">
+            <button id="closeImageModalBtn" class="btn-close-image-modal" aria-label="閉じる">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Rename Modal -->
+    <div id="renameModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-pen"></i> チャット名を変更</h2>
+                <button id="closeRenameModalBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" style="margin-top: 0.5rem;">
+                    <div class="form-label" style="margin-bottom: 0.75rem; display: block;">新しい名前</div>
+                    <input type="text" id="renameInput" class="modal-input" placeholder="チャット名を入力">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelRenameBtn" class="btn-secondary">キャンセル</button>
+                <button id="saveRenameBtn" class="btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Auth Modal -->
+    <div id="localAuthModal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2 id="localAuthModalTitle"><i class="fa-solid fa-right-to-bracket"></i> ログイン</h2>
+                <button id="closeLocalAuthModalBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="localAuthError" class="error-message hidden"
+                    style="margin-bottom:1rem;padding:0.75rem;border-radius:var(--radius-sm);background:var(--color-error-bg,#fee2e2);color:var(--color-error,#dc2626);font-size:0.9rem;">
+                </div>
+                <div class="input-group" style="margin-bottom:1rem;">
+                    <label class="form-label" for="localAuthUsername">ユーザー名</label>
+                    <input type="text" id="localAuthUsername" class="modal-input" placeholder="username"
+                        autocomplete="username">
+                </div>
+                <div class="input-group" id="localAuthEmailGroup" class="hidden"
+                    style="margin-bottom:1rem;display:none;">
+                    <label class="form-label" for="localAuthEmail">メールアドレス（任意）</label>
+                    <input type="email" id="localAuthEmail" class="modal-input" placeholder="email@example.com"
+                        autocomplete="email">
+                </div>
+                <div class="input-group" style="margin-bottom:1rem;">
+                    <label class="form-label" for="localAuthPassword">パスワード</label>
+                    <input type="password" id="localAuthPassword" class="modal-input" placeholder="••••••••"
+                        autocomplete="current-password">
+                </div>
+                <div id="localAuthPasswordConfirmGroup" style="margin-bottom:1rem;display:none;">
+                    <label class="form-label" for="localAuthPasswordConfirm">パスワード（確認）</label>
+                    <input type="password" id="localAuthPasswordConfirm" class="modal-input" placeholder="••••••••"
+                        autocomplete="new-password">
+                </div>
+            </div>
+            <div class="modal-actions" style="flex-direction:column;gap:0.5rem;">
+                <button id="localAuthSubmitBtn" class="btn-primary full-width">ログイン</button>
+                <button id="localAuthToggleBtn" class="btn-secondary full-width">アカウントを作成</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Conversation Modal -->
+    <div id="voiceConversationModal" class="voice-modal-overlay hidden">
+        <div class="voice-modal-content">
+            <div class="voice-modal-header">
+                <h2>通話中: KAi</h2>
+            </div>
+
+            <div class="voice-modal-body">
+                <div class="voice-status-indicator">
+                    <svg class="voice-logo-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" width="104.57795"
+                        height="104.57795" viewBox="0,0,104.57795,104.57795">
+                        <defs>
+                            <linearGradient x1="189.71103" y1="137.80254" x2="290.28897" y2="222.19746"
+                                gradientUnits="userSpaceOnUse" id="color-1">
+                                <stop offset="0" stop-color="#1563e5" />
+                                <stop offset="0.97877" stop-color="#ac16e5" />
+                            </linearGradient>
+                            <linearGradient x1="189.71103" y1="137.80254" x2="290.28898" y2="222.19746"
+                                gradientUnits="userSpaceOnUse" id="color-2">
+                                <stop offset="0" stop-color="#1b60e5" />
+                                <stop offset="1" stop-color="#ab16e5" />
+                            </linearGradient>
+                            <!-- 波のクリッピングパス（下部の隙間を隠す） -->
+                            <clipPath id="wave-clip">
+                                <path
+                                    d="M205.71103,230.28898c-8.83656,0 -16,-7.16344 -16,-16v-68.57795c0,-8.83656 7.16344,-16 16,-16h68.57795c8.83655,0 16,7.16344 16,16v68.57795c0,8.83656 -7.16345,16 -16,16z" />
+                            </clipPath>
+                        </defs>
+                        <g transform="translate(-187.71102,-127.71102)">
+                            <g stroke-miterlimit="10">
+                                <!-- 白い背景 -->
+                                <path
+                                    d="M205.71103,230.28898c-8.83656,0 -16,-7.16344 -16,-16v-68.57795c0,-8.83656 7.16344,-16 16,-16h68.57795c8.83655,0 16,7.16344 16,16v68.57795c0,8.83656 -7.16345,16 -16,16z"
+                                    fill="#ffffff" stroke="none" stroke-width="4" stroke-linecap="butt" />
+
+                                <!-- 波の部分（アニメーション対象、クリッピング適用） -->
+                                <g clip-path="url(#wave-clip)">
+                                    <path class="voice-wave-path"
+                                        d="M205.71102,230.28897c-8.83655,0 -16,-7.16345 -16,-16l1.11505,-26.20586c0,-2.3158 8.37697,10.24616 18.43627,9.79972c8.71248,-0.38667 11.57639,-11.74732 22.48322,-12.89842c7.58908,-0.80095 10.39974,9.80483 18.98111,10.80036c7.78981,0.9037 9.50589,-6.22704 23.62834,-8.60211c8.16178,-1.37262 15.71095,5.51526 15.71095,7.36777l0.22301,19.73855c0,8.83655 -7.16345,16 -16,16z"
+                                        fill="url(#color-1)" stroke="none" stroke-width="4" stroke-linecap="butt" />
+                                </g>
+
+                                <!-- 目（左） -->
+                                <path d="M223.38259,150.46475v19.62497" fill="none" stroke="#000000" stroke-width="6"
+                                    stroke-linecap="round" />
+
+                                <!-- 目（右） -->
+                                <path d="M254.25187,149.88948v19.62497" fill="none" stroke="#000000" stroke-width="6"
+                                    stroke-linecap="round" />
+
+                                <!-- 枠線 -->
+                                <path
+                                    d="M205.71103,230.28898c-8.83656,0 -16,-7.16344 -16,-16v-68.57795c0,-8.83656 7.16344,-16 16,-16h68.57795c8.83655,0 16,7.16344 16,16v68.57795c0,8.83656 -7.16345,16 -16,16z"
+                                    fill="none" stroke="url(#color-2)" stroke-width="4" stroke-linecap="butt" />
+                            </g>
+                        </g>
+                    </svg>
+                    <p class="voice-status-text">聞いています...</p>
+                </div>
+
+                <div class="voice-transcript">
+                    <p id="voiceTranscriptText"></p>
+                </div>
+            </div>
+
+            <div class="voice-modal-controls">
+                <button id="voicePauseResumeBtn" class="btn-voice-control btn-pause" aria-label="一時停止">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+                <button id="voiceEndBtn" class="btn-voice-control btn-end" aria-label="会話を終了">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal-overlay hidden">
+        <div class="modal-content search-modal">
+            <div class="search-modal-header">
+                <i class="fa-solid fa-search search-input-icon"></i>
+                <input type="text" id="searchInput" placeholder="チャットを検索..." aria-label="チャットを検索">
+                <button id="closeSearchBtn" class="btn-icon-only" aria-label="閉じる">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-empty-state">
+                    <i class="fa-solid fa-search"></i>
+                    <p>検索キーワードを入力してください</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unified Settings Modal -->
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal-content settings-modal settings-modal-wide">
+            <div class="modal-header settings-modal-header">
+                <button id="settingsBackBtn" class="btn-icon-only hidden" aria-label="戻る">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+                <h2><i class="fa-solid fa-gear"></i> 設定</h2>
+                <button id="closeSettingsBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="settings-layout">
+                <!-- Category Sidebar -->
+                <div class="settings-sidebar" id="settingsSidebar">
+                    <button id="settingsMenuToggle" class="settings-menu-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <button class="settings-tab active" data-tab="appearance">
+                        <i class="fa-solid fa-palette"></i>
+                        <span>外観</span>
+                    </button>
+                    <button class="settings-tab settings-tab-pro" data-tab="ai">
+                        <i class="fa-solid fa-robot"></i>
+                        <span>AI設定</span>
+                    </button>
+                    <button class="settings-tab settings-tab-pro" data-tab="data">
+                        <i class="fa-solid fa-database"></i>
+                        <span>データ</span>
+                    </button>
+                    <button class="settings-tab" data-tab="developer">
+                        <i class="fa-solid fa-code"></i>
+                        <span>デベロッパー</span>
+                    </button>
+                    <button class="settings-tab" data-tab="account">
+                        <i class="fa-solid fa-user"></i>
+                        <span>アカウント</span>
+                    </button>
+                </div>
+
+                <!-- Content Area -->
+                <div class="settings-content">
+                    <!-- Appearance Panel -->
+                    <div class="settings-panel active" id="panel-appearance">
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-circle-half-stroke"></i> カラーモード</h3>
+                            <p class="settings-section-label">ライト / ダーク / システム</p>
+                            <div class="mode-selector" id="modeSelector">
+                                <button class="mode-btn" data-mode="light" title="ライトモード">
+                                    <i class="fa-solid fa-sun"></i>
+                                </button>
+                                <button class="mode-btn" data-mode="dark" title="ダークモード">
+                                    <i class="fa-solid fa-moon"></i>
+                                </button>
+                                <button class="mode-btn active" data-mode="system" title="システム設定に従う">
+                                    <i class="fa-solid fa-circle-half-stroke"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-swatchbook"></i> アクセントカラー</h3>
+                            <p class="settings-section-label">ブルー / パープル / グリーン / オレンジ</p>
+                            <div class="theme-selector">
+                                <button class="theme-btn active" data-theme="blue"
+                                    style="background-color: #3b82f6;"></button>
+                                <button class="theme-btn" data-theme="purple"
+                                    style="background-color: #8b5cf6;"></button>
+                                <button class="theme-btn" data-theme="green"
+                                    style="background-color: #10b981;"></button>
+                                <button class="theme-btn" data-theme="orange"
+                                    style="background-color: #f59e0b;"></button>
+                            </div>
+                        </div>
+
+                        <div class="settings-section settings-section-last">
+                            <h3><i class="fa-solid fa-wand-magic-sparkles"></i> テーマ</h3>
+                            <p class="settings-section-label">追加のビジュアルスタイル</p>
+                            <div class="custom-theme-selector">
+                                <select id="customThemeSelect" class="settings-select full-width">
+                                    <option value="default">デフォルト</option>
+                                </select>
+                            </div>
+
+                            <button id="saveAppearanceBtn" class="btn-primary settings-save-btn">保存</button>
+                        </div>
+                    </div>
+
+                    <!-- AI Settings Panel (Pro Only) -->
+                    <div class="settings-panel" id="panel-ai">
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-user-gear"></i> AI人格設定</h3>
+                            <p class="settings-desc">AIの振る舞いや口調を指定できます。</p>
+                            <textarea id="systemPromptInput" placeholder="例: あなたは親切なアシスタントです" rows="3"></textarea>
+                        </div>
+
+                        <div class="settings-section settings-section-last">
+                            <h3><i class="fa-solid fa-sliders"></i> パラメータ調整</h3>
+
+                            <div class="slider-group">
+                                <div class="slider-label">
+                                    <span>創造性 (Temperature)</span>
+                                    <span id="tempValue">0.3</span>
+                                </div>
+                                <input type="range" id="tempSlider" min="0" max="2" step="0.1" value="0.3">
+                                <div class="slider-desc">低いと論理的、高いと創造的になります。</div>
+                            </div>
+
+                            <div class="slider-group">
+                                <div class="slider-label">
+                                    <span>多様性 (Top P)</span>
+                                    <span id="topPValue">0.85</span>
+                                </div>
+                                <input type="range" id="topPSlider" min="0" max="1" step="0.05" value="0.85">
+                            </div>
+                        </div>
+
+                        <div class="settings-section settings-section-last">
+                            <h3><i class="fa-solid fa-volume-high"></i> 音声設定</h3>
+                            <p class="settings-section-label">AI回答の自動読み上げ</p>
+
+                            <div class="data-setting-item">
+                                <label class="toggle-switch-label">
+                                    <input type="checkbox" id="voiceAutoPlayCheckbox" class="checkbox">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">AI回答を自動で読み上げ</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Panel (Pro Only) -->
+                    <div class="settings-panel" id="panel-data">
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-cloud-arrow-up"></i> データ保存設定</h3>
+                            <p class="settings-desc">チャットデータの保存設定を変更できます（デフォルトは保存します）。</p>
+
+                            <div class="data-setting-item">
+                                <label class="toggle-switch-label">
+                                    <input type="checkbox" id="saveTextHistoryCheckbox" class="checkbox">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">チャットを保存しない</span>
+                                </label>
+                            </div>
+
+                            <div class="data-setting-item">
+                                <label class="toggle-switch-label">
+                                    <input type="checkbox" id="saveImageHistoryCheckbox" class="checkbox">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-text">画像を保存しない</span>
+                                </label>
+                            </div>
+                            <button id="deleteAllChatsBtn" class="btn-danger full-width">
+                                <i class="fa-solid fa-trash"></i> すべてのチャットを削除
+                            </button>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3><i class="fa-solid fa-file-export"></i> エクスポート</h3>
+                            <p class="settings-desc">現在開いているチャットをファイルとして保存します。</p>
+                            <button id="exportChatBtn" class="btn-secondary full-width">
+                                <i class="fa-solid fa-download"></i> Markdownで保存
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Developer Panel -->
+                    <div class="settings-panel" id="panel-developer">
+                        <div class="settings-section settings-section-last">
+                            <h3><i class="fa-solid fa-code"></i> デベロッパー</h3>
+                            <p class="settings-desc">外部サイト用の埋め込みウィジェットを管理します。</p>
+                            <button id="openEmbeddedSitesBtn" class="btn-primary full-width">
+                                <i class="fa-solid fa-external-link"></i> 埋め込みサイト管理を開く
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Account Panel -->
+                    <div class="settings-panel" id="panel-account">
+                        <div class="settings-section settings-section-last">
+                            <h3><i class="fa-solid fa-user"></i> アカウント</h3>
+                            <p class="settings-desc">アカウントやProプランの管理を行います。</p>
+                            <button id="settingsCancelProBtn" class="btn-secondary full-width" style="display: none;">
+                                <i class="fa-solid fa-ban"></i> 解約する
+                            </button>
+                            <button id="settingsLogoutBtn" class="btn-danger full-width" style="display: none;">
+                                <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frame decorations -->
+                <div class="settings-frame-top-left"></div>
+                <div class="settings-frame-top-right"></div>
+                <div class="settings-frame-right"></div>
+                <div class="settings-frame-bottom"></div>
+                <div class="settings-frame-bottom-left"></div>
+                <div class="settings-frame-bottom-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Selection Modal -->
+    <div id="toolSelectionModal" class="modal-overlay hidden">
+        <div class="modal-content tool-selection-modal">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-screwdriver-wrench"></i> ツールを選択</h2>
+                <button id="closeToolSelectionBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="toolSearchInput" placeholder="ツールを検索...">
+                </div>
+                <div class="divider-md"></div>
+                <div id="toolList" class="tool-list">
+                    <!-- Tools will be injected by script.js -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="confirmToolSelectionBtn" class="btn-primary">決定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Templates for JS to use -->
+    <template id="userMessageTemplate">
+        <div class="message user-message">
+            <div class="user-message-wrapper">
+                <div class="message-content"></div>
+                <div class="message-actions-wrapper">
+                    <span class="message-timestamp" data-tooltip=""></span>
+                    <div class="message-actions">
+                        <button class="btn-action copy-btn" data-tooltip="コピー">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                        <button class="btn-action edit-btn" data-tooltip="編集">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="aiMessageTemplate">
+        <div class="message ai-message">
+            <div class="ai-message-wrapper">
+                <div class="message-content markdown-body"></div>
+                <div class="message-actions-wrapper">
+                    <div class="message-actions">
+                        <button class="btn-action copy-btn" data-tooltip="コピー">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                        <div class="feedback-actions">
+                            <button class="btn-action feedback-btn" data-type="good" data-tooltip="良い回答">
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            </button>
+                            <button class="btn-action feedback-btn" data-type="bad" data-tooltip="悪い回答">
+                                <i class="fa-regular fa-thumbs-down"></i>
+                            </button>
+                        </div>
+                        <button class="btn-action regenerate-btn" data-tooltip="再生成">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                        <button class="btn-action message-share-btn" data-tooltip="共有">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+                        <button class="btn-action info-btn" data-tooltip="情報">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Message Info Modal -->
+    <div id="messageInfoModal" class="modal-overlay hidden">
+        <div class="modal-content message-info-modal">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-circle-info"></i> このメッセージの情報</h2>
+                <button id="closeMessageInfoBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="message-info-item">
+                    <span class="message-info-label">送信日時</span>
+                    <span id="messageInfoTimestamp" class="message-info-value">-</span>
+                </div>
+                <div class="message-info-item">
+                    <span class="message-info-label">モデル</span>
+                    <span id="messageInfoModel" class="message-info-value">-</span>
+                </div>
+                <div class="message-info-item">
+                    <span class="message-info-label">生成速度</span>
+                    <span id="messageInfoSpeed" class="message-info-value">-</span>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="closeMessageInfoOkBtn" class="btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Reason Modal -->
+    <div id="feedbackReasonModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-comment"></i> フィードバックの理由</h2>
+                <button id="closeFeedbackReasonBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="settings-desc">どうしてこの評価をされましたか？（任意）</p>
+                <textarea id="feedbackReasonText" placeholder="理由を入力..." rows="3"></textarea>
+                <div class="feedback-tags-container">
+                    <p class="form-label">タグを選択:</p>
+                    <div id="feedbackTagsList" class="feedback-tags-list">
+                        <!-- Tags will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="skipFeedbackBtn" class="btn-secondary">スキップ</button>
+                <button id="submitFeedbackBtn" class="btn-primary">送信</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Share Modal -->
+    <div id="messageShareModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-share-nodes"></i> メッセージを共有</h2>
+                <button id="closeMessageShareBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="share-desc">このメッセージを共有する方法を選択してください。</p>
+                <div class="share-method-buttons">
+                    <button id="shareAsImageBtn" class="btn-share-method">
+                        <i class="fa-solid fa-image"></i>
+                        <span>画像として共有</span>
+                    </button>
+                    <button id="shareAsUrlBtn" class="btn-share-method">
+                        <i class="fa-solid fa-link"></i>
+                        <span>URLで共有</span>
+                    </button>
+                </div>
+                <div id="shareImagePreview" class="share-image-preview hidden">
+                    <canvas id="shareCanvas"
+                        style="max-width: 100%; border: 1px solid var(--border-color); border-radius: var(--radius-md);"></canvas>
+                    <button id="downloadShareImageBtn" class="btn-primary">画像をダウンロード</button>
+                </div>
+                <div id="shareUrlContainer" class="share-url-container hidden">
+                    <div class="form-label">共有リンク</div>
+                    <div class="url-input-group">
+                        <input type="text" id="messageShareUrlInput" readonly class="share-url-input">
+                        <button id="copyMessageShareUrlBtn" class="btn-secondary" title="URLをコピー">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <p class="share-note">会話全体を共有するには、チャット共有ボタンをご利用ください。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tag Management Modal -->
+    <div id="tagManagementModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-tags"></i> タグを管理</h2>
+                <button id="closeTagManagementBtn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="tag-search-container">
+                    <i class="fa-solid fa-search tag-search-icon"></i>
+                    <input type="text" id="tagSearchInput" placeholder="タグを検索..." class="tag-search-input">
+                </div>
+                <div class="selected-tags-container">
+                    <p class="form-label">選択中のタグ</p>
+                    <div id="selectedTagsList" class="tags-list selected-tags">
+                        <!-- Selected tags will be shown here -->
+                    </div>
+                </div>
+                <div class="available-tags-container">
+                    <p class="form-label">利用可能なタグ</p>
+                    <div id="availableTagsList" class="tags-list">
+                        <!-- Tags will be inserted here -->
+                    </div>
+                    <div class="tag-create-container">
+                        <input type="text" id="newTagInput" placeholder="新しいタグ名..." maxlength="20">
+                        <button id="createTagBtn" class="btn-secondary"><i class="fa-solid fa-plus"></i> 作成</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancelTagManagementBtn" class="btn-secondary">キャンセル</button>
+                <button id="saveTagsBtn" class="btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="announcementContainer" class="announcement-container" aria-live="polite" aria-label="お知らせ"></div>
+
+    <!-- Shared Session Menu Dropdown -->
+    <div id="sessionMenuDropdown" class="dropdown history-dropdown hidden"></div>
+
+    <!-- Admin: shared setting edit modal (used by システム設定 and ログインと認証) -->
+    <div id="admin-setting-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="admin-setting-modal-title">設定を編集</h2>
+                <button id="admin-close-setting-modal-btn" class="btn-icon-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="admin-setting-form">
+                <input type="hidden" name="key">
+                <div class="form-group">
+                    <label>キー</label>
+                    <input type="text" name="displayKey" disabled class="form-control" style="width: 100%; margin-bottom: 1rem; opacity: 0.7;">
+                </div>
+                <div class="form-group">
+                    <label>値</label>
+                    <input type="text" id="admin-setting-value-input" name="value" required class="form-control" style="width: 100%; margin-bottom: 1rem;">
+                </div>
+                <div class="form-group">
+                    <label>カテゴリ</label>
+                    <input type="text" name="category" class="form-control" style="width: 100%; margin-bottom: 1rem;">
+                </div>
+                <div class="form-group">
+                    <label>説明</label>
+                    <textarea name="description" class="form-control" style="width: 100%; min-height: 80px; margin-bottom: 1rem;"></textarea>
+                </div>
+                <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" id="admin-cancel-setting-btn" class="btn-secondary" style="padding: 0.5rem 1.5rem; border-radius: 20px;">キャンセル</button>
+                    <button type="submit" class="btn-primary" style="padding: 0.5rem 1.5rem; border-radius: 20px;">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+

@@ -1,0 +1,707 @@
+/* ============== 折りたたみ機能 ============== */
+.collapsible-section {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collapsible-section.collapsed {
+    max-height: 45px;
+    /* Just enough for header */
+}
+
+.collapsible-section.hidden {
+    display: none;
+}
+
+/* 静的ページ表示時にチャット関連のコンテナを強制的に非表示にする */
+.is-static-page #historyContainer,
+.is-static-page #tagsContainer,
+.is-static-page #pinnedContainer,
+.is-static-page #newChatBtnSidebar {
+    display: none !important;
+}
+
+.collapsible-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    padding: 0 0.5rem;
+}
+
+.history-header-actions {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.btn-collapse {
+    transition: transform 0.3s;
+}
+
+.collapsible-section.collapsed .btn-collapse i {
+    transform: rotate(-90deg);
+}
+
+.collapsible-content {
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    overflow: hidden;
+}
+
+.collapsible-section.collapsed .collapsible-content {
+    max-height: 0 !important;
+    opacity: 0;
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Disable per-section scrolling on mobile and use unified sidebar scroll */
+    .history-container,
+    .page-nav-list {
+        overflow-y: visible !important;
+        flex: none !important;
+    }
+}
+
+/* ============== ピン止めコンテナ ============== */
+.pinned-container {
+    padding: 0 0 0.5rem 0.5rem;
+}
+
+.pinned-container .history-item {
+    border-left-color: var(--warning-color);
+}
+
+.pinned-container .history-item:hover {
+    border-left-color: var(--warning-color);
+}
+
+.pinned-container .history-item.active {
+    border-left-color: var(--warning-color);
+}
+
+.pinned-indicator {
+    color: var(--warning-color);
+    font-size: 0.75rem;
+}
+
+/* ============== タグコンテナ ============== */
+.tags-container {
+    padding: 0 0 0.5rem 0.5rem;
+}
+
+
+.tag-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tag-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+}
+
+/* ============== チャットタグ表示 ============== */
+.chat-tags-display {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.chat-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    background: hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l));
+    color: hsl(var(--tag-hue, 210), calc(var(--tag-saturation, 70%) * 0.8), var(--tag-text-l));
+    border: 1px solid hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-border-l));
+    border-radius: 999px;
+    font-size: 0.75rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.chat-tag:hover {
+    background: color-mix(in srgb, hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l)), white 15%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .chat-tag:hover {
+    background: color-mix(in srgb, hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l)), black 5%);
+}
+
+.btn-add-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px dashed var(--border-color);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+}
+
+.btn-add-tag:hover {
+    background: var(--item-hover-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* ============== フィードバック理由モーダル ============== */
+#feedbackReasonModal textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.feedback-tags-container {
+    margin-top: 1.5rem;
+}
+
+.feedback-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.feedback-tag {
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.feedback-tag:hover {
+    border-color: var(--primary-color);
+    background: var(--item-hover-bg);
+}
+
+.feedback-tag.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* ============== メッセージ共有モーダル ============== */
+.share-method-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.btn-share-method {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-share-method:hover {
+    border-color: var(--primary-color);
+    background: var(--item-hover-bg);
+    transform: translateY(-2px);
+}
+
+.btn-share-method i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.share-image-preview {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.share-note {
+    margin-top: 1.5rem;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* ============== タグ管理モーダル ============== */
+.tag-select-container,
+.selected-tags-container {
+    margin-bottom: 1.5rem;
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    min-height: 40px;
+}
+
+.tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l));
+    color: hsl(var(--tag-hue, 210), calc(var(--tag-saturation, 70%) * 0.8), var(--tag-text-l));
+    border: 1px solid hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-border-l));
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tag-badge:hover {
+    background: color-mix(in srgb, hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l)), var(--tag-hover-mix));
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tag-badge.selected {
+    border-style: solid;
+}
+
+.tag-badge .btn-remove-tag {
+    background: transparent;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.tag-badge .btn-remove-tag:hover {
+    opacity: 1;
+}
+
+.tag-create-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.tag-create-container input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.tag-create-container button {
+    border-radius: 999px;
+    background: var(--user-profile-bg);
+}
+
+.selected-tags {
+    background: var(--user-profile-bg);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    /* 呪い */
+    padding: 0.75rem;
+}
+
+/* Empty state for selected tags */
+.selected-tags:empty::before {
+    content: "タグが選択されていません";
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .collapsible-section {
+        margin-bottom: 0.5rem;
+    }
+
+    .chat-tags-display {
+        margin-top: 0.25rem;
+    }
+
+    .btn-add-tag {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .share-method-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============== タグ管理モーダル（改良版） ============== */
+.tag-management-modal {
+    max-width: 550px;
+}
+
+.tag-search-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.tag-search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.tag-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border-radius: 999px;
+    background: var(--user-profile-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.tag-search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+.available-tags-container {
+    margin-top: 1.5rem;
+}
+
+.tags-empty-message {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 1rem;
+}
+
+/* ============== Admin Sidebar & Table ============== */
+#adminSidebarSection .tag-search-container {
+    margin: 0.15rem 0.5rem 0.75rem !important;
+}
+
+#admin-sidebar-search {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s;
+    line-height: 1.2;
+}
+
+#admin-sidebar-search:focus {
+    border-color: var(--primary-color);
+    background: var(--bg-primary);
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.1);
+}
+
+.admin-table-container {
+    margin-top: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-table th {
+    background: var(--bg-primary);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+}
+
+.admin-table tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s;
+}
+
+.admin-table tr:hover {
+    background: rgba(var(--primary-rgb), 0.02);
+}
+
+.admin-table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+}
+
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-avatar-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-full-name {
+    font-weight: 500;
+}
+
+.user-username-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.btn-desktop-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: var(--user-profile-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-desktop-tag:hover {
+    background: color-mix(in srgb, var(--item-hover-bg)75%, var(--primary-color)25%);
+    border-color: var(--primary-color);
+}
+
+.btn-desktop-tag i {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.tags-text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.desktop-tags-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+    margin-left: 0.75rem;
+}
+
+/* --- Header Tag Badges --- */
+.tag-badge-header {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    background: hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l));
+    color: hsl(var(--tag-hue, 210), calc(var(--tag-saturation, 70%) * 0.8), var(--tag-text-l));
+    border: 1px solid hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-border-l));
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: default;
+}
+
+.tag-badge-header:hover {
+    padding-right: 1.8rem;
+    background: color-mix(in srgb, hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l)), var(--tag-hover-mix));
+}
+
+.btn-remove-tag-header {
+    position: absolute;
+    right: 0.6rem;
+    background: transparent;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tag-badge-header:hover .btn-remove-tag-header {
+    opacity: 0.8;
+    transform: scale(1);
+}
+
+.btn-remove-tag-header:hover {
+    opacity: 1 !important;
+}
+
+/* タグドロップダウン */
+.tag-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    background: var(--user-profile-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 0.75rem;
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-left: 1rem;
+}
+
+.tag-dropdown-search {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.tag-dropdown-search i {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.tag-dropdown-search input {
+    width: 100%;
+    padding: 0.6rem 0.9rem 0.6rem 2.25rem;
+    border-radius: 999px;
+    background: var(--user-profile-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.tag-dropdown-search input:focus {
+    border-color: var(--primary-color);
+}
+
+.tag-dropdown-selected,
+.tag-dropdown-available {
+    margin-bottom: 1rem;
+}
+
+.tag-dropdown-selected:last-child,
+.tag-dropdown-available:last-child {
+    margin-bottom: 0;
+}
+
+.tag-dropdown-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.tag-dropdown-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    min-height: 30px;
+}
+
+.tag-badge-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    background: hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l));
+    color: hsl(var(--tag-hue, 210), calc(var(--tag-saturation, 70%) * 0.8), var(--tag-text-l));
+    border: 1px solid hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-border-l));
+    border-radius: 999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.tag-badge-inline:hover {
+    border-color: var(--primary-color);
+    background: color-mix(in srgb, hsl(var(--tag-hue, 210), var(--tag-saturation, 70%), var(--tag-bg-l)), var(--tag-hover-mix));
+}
+
+.tag-badge-inline.selected {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-remove-tag-inline {
+    background: transparent;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    opacity: 0.8;
+    transition: opacity 0.15s;
+}
+
+.btn-remove-tag-inline:hover {
+    opacity: 1;
+}
+

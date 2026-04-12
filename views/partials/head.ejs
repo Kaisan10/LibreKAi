@@ -1,0 +1,79 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAi</title>
+    <!-- Preload Critical Assets -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/base/variables.css">
+    <link rel="stylesheet" href="/css/base/layout.css">
+    <link rel="stylesheet" href="/css/components/components.css">
+    <link rel="stylesheet" href="/css/components/input.css">
+    <link rel="stylesheet" href="/css/components/modal.css">
+    <link rel="stylesheet" href="/css/components/panels.css">
+    <link rel="stylesheet" href="/css/components/tools.css">
+    <link rel="stylesheet" href="/css/chat/chat.css">
+    <link rel="stylesheet" href="/css/pages/pages.css">
+    <link rel="stylesheet" href="/css/pages/mobile-tags.css">
+    <link rel="stylesheet" href="/css/pages/pro-page.css">
+    <link rel="stylesheet" href="/css/pages/tags.css">
+    <link rel="stylesheet" href="/css/pages/blog.css">
+    <link rel="stylesheet" href="/css/settings/settings.css">
+    <link rel="stylesheet" href="/css/settings/user-settings.css">
+
+    <link rel="preload" href="/js/theme-init.js" as="script">
+    <link rel="preload" href="/image/logo2.webp" as="image" fetchpriority="high">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2"
+        as="font" type="font/woff2" crossorigin>
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+    <!-- Module Preload to flatten request chain -->
+    <link rel="modulepreload" href="/js/index.js">
+    <link rel="modulepreload" href="/js/constants.js">
+    <link rel="modulepreload" href="/js/themes.js">
+    <link rel="modulepreload" href="/js/sanitize.js">
+    <link rel="modulepreload" href="/js/pages.js">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <script nonce="<%= nonce %>">
+        // Trusted Types Policy for compatibility
+        if (window.trustedTypes && window.trustedTypes.createPolicy) {
+            if (!window.trustedTypes.defaultPolicy) {
+                window.trustedTypes.createPolicy('default', {
+                    createHTML: (string) => string,
+                    createScriptURL: (string) => string,
+                    createScript: (string) => string,
+                });
+            }
+        }
+    </script>
+    <script src="/js/theme-init.js"></script>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link id="fa-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" crossorigin="anonymous">
+    <script nonce="<%= nonce %>">
+        // Use nonced script instead of inline onload to satisfy CSP
+        (function () {
+            var fa = document.getElementById('fa-css');
+            if (fa) {
+                fa.onload = function () { this.media = 'all'; };
+                // Fallback if already loaded
+                if (fa.sheet) fa.media = 'all';
+            }
+        })();
+    </script>
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+
+    <!-- Markdown & Syntax Support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.9/purify.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>

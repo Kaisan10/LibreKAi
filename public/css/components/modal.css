@@ -1,0 +1,500 @@
+/* ============== Modal ============== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Confirm/Alert modal should appear above settings modal */
+#confirmModal,
+#alertModal {
+    z-index: 2200;
+}
+
+.modal-overlay.closing {
+    animation: fadeOut 0.2s ease-out;
+}
+
+.modal-content {
+    background-color: var(--sidebar-bg);
+    padding: 0;
+    /* padding removed to use standardized header/body/actions */
+    border-radius: 1rem;
+    max-width: 500px;
+    width: 90%;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--modal-shadow);
+    animation: modalSlideIn 0.3s ease-out;
+    overflow: hidden;
+    /* Ensure rounded corners for header/footer */
+}
+
+.modal-body {
+    padding: 0 1.5rem;
+    color: var(--text-color);
+}
+
+.modal-actions {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.modal-overlay.closing .modal-content {
+    animation: modalSlideOut 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalSlideOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: var(--text-color);
+}
+
+.terms-preview {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.terms-preview p {
+    margin: 0.5rem 0;
+}
+
+.terms-preview a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.terms-preview a:hover {
+    text-decoration: underline;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-actions button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 5px
+}
+
+.modal-actions button.btn-secondary:hover {
+    background-color: var(--bg-hover);
+}
+
+/* ============== Sidebar Overlay ============== */
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 900;
+    /* Below sidebar (1000) */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.sidebar-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* ============== Dropdown Overlay ============== */
+
+.dropdown-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 200;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* 非表示時は下の要素を通常どおり操作できるようにしておく */
+    pointer-events: none;
+}
+
+.dropdown-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    /* 表示中は下のボタンなどにクリックが抜けないようブロックする */
+    pointer-events: auto;
+}
+
+/* ============== Utilities ============== */
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: var(--primary-color);
+    animation: blink 1s infinite;
+    vertical-align: text-bottom;
+    margin-left: 1px;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ============== Responsive ============== */
+
+@media (max-width: 768px) {
+
+    /* Always show menu button on mobile */
+    .btn-history-menu {
+        opacity: 1 !important;
+    }
+
+    /* Keep message actions always visible on mobile */
+    .message-actions {
+        opacity: 1 !important;
+    }
+
+    /* Completely disable ALL hover effects and transitions on mobile */
+    .history-item,
+    .dropdown-item,
+    .footer-link,
+    .btn-new-chat,
+    .btn-icon-only,
+    .btn-history-menu,
+    .btn-action,
+    .input-area {
+        transition: none !important;
+    }
+
+    #shareBtnMobile {
+        display: none !important;
+    }
+
+    .user-profile-compact {
+        width: 100% !important;
+    }
+
+    .user-info-sidebar {
+        width: 100% !important;
+    }
+
+    /* Prevent color change on dropdown items when touched */
+    .dropdown-item:active,
+    .dropdown-item:focus {
+        color: var(--text-color) !important;
+    }
+
+    .dropdown-item.logout:active,
+    .dropdown-item.logout:focus {
+        color: var(--error-color) !important;
+    }
+
+    /* Suppress the indicators on mobile */
+    .history-item,
+    .tag-item,
+    .dropdown-item {
+        border-left: none !important;
+    }
+
+    /* Hide pseudo-element masks on mobile */
+    .history-item::before,
+    .tag-item::before {
+        display: none !important;
+    }
+
+    /* Ensure dropdowns stay within viewport - converted to bottom sheet on mobile */
+    .history-dropdown,
+    .user-dropdown,
+    .image-upload-dropdown,
+    .control-panel-dropdown,
+    .ai-settings-panel {
+        position: fixed !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        border-radius: 1rem 1rem 0 0 !important;
+        border: none !important;
+        border-top: 1px solid var(--border-color) !important;
+        padding: 1rem 0.75rem 0.5rem !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+        z-index: 9999 !important;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .history-dropdown:not(.hidden),
+    .user-dropdown:not(.hidden),
+    .image-upload-dropdown:not(.hidden),
+    .control-panel-dropdown:not(.hidden),
+    .ai-settings-panel:not(.hidden),
+    .history-dropdown.visible,
+    .user-dropdown.visible,
+    .image-upload-dropdown.visible,
+    .control-panel-dropdown.visible,
+    .ai-settings-panel.visible {
+        transform: translateY(0) !important;
+    }
+
+    .history-dropdown.closing,
+    .user-dropdown.closing,
+    .image-upload-dropdown.closing,
+    .control-panel-dropdown.closing,
+    .ai-settings-panel.closing {
+        transform: translateY(100%) !important;
+        animation: none !important;
+    }
+
+    /* Add a handle indicator at the top of bottom sheet */
+    .history-dropdown::after,
+    .user-dropdown::after,
+    .image-upload-dropdown::after,
+    .control-panel-dropdown::after,
+    .ai-settings-panel::after {
+        content: '';
+        position: absolute;
+        top: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 4px;
+        background-color: var(--text-muted);
+        border-radius: 2px;
+        opacity: 0.5;
+    }
+
+    /* Bottom sheet handle touch area for swipe */
+    .bottom-sheet-handle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2rem;
+        cursor: grab;
+        touch-action: none;
+        z-index: 10;
+    }
+
+    .bottom-sheet-handle:active {
+        cursor: grabbing;
+    }
+
+    /* During drag, disable transition for immediate response */
+    .history-dropdown.dragging,
+    .user-dropdown.dragging,
+    .image-upload-dropdown.dragging,
+    .control-panel-dropdown.dragging,
+    .ai-settings-panel.dragging {
+        transition: none !important;
+    }
+
+    /* Adjust dropdown items for bottom sheet */
+    .history-dropdown .dropdown-item,
+    .user-dropdown .dropdown-item,
+    .image-upload-dropdown .dropdown-item,
+    .control-panel-dropdown .dropdown-item,
+    .ai-settings-panel .dropdown-item {
+        padding: 1.3rem 0.75rem !important;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Create overlay for bottom sheet */
+    .dropdown-overlay {
+        z-index: 1400;
+    }
+
+    .mobile-header {
+        display: flex;
+    }
+
+    #toggleSidebarBtn {
+        display: none;
+    }
+}
+
+.chat-history-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: var(--warning-color);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-login-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--btn-login-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--button-shadow);
+    width: 100%;
+}
+
+.btn-login-sidebar i {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.btn-login-sidebar:hover {
+    background-color: var(--btn-login-hover);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-login-sidebar:active {
+    transform: translateY(0);
+}
+
+.sidebar.collapsed .btn-login-sidebar {
+    display: none;
+}
+
+.menu-icon {
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.sidebar.collapsed .menu-icon {
+    display: none;
+}
+
+.btn-logout-icon {
+    color: var(--text-muted);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.btn-logout-icon:hover {
+    background-color: var(--bg-hover);
+    color: var(--error-color);
+}

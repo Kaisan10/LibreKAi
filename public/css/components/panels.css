@@ -1,0 +1,595 @@
+/* ============== Image Fullscreen Modal ============== */
+.image-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease;
+}
+
+.image-modal-overlay.hidden {
+    display: none;
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.image-modal-content img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+/* ============== Voice Conversation Modal ============== */
+
+.voice-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0d111c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+.voice-modal-overlay.hidden {
+    display: none;
+}
+
+.voice-modal-content {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem 2rem;
+    color: var(--text-color);
+}
+
+.voice-modal-header {
+    text-align: center;
+}
+
+.voice-modal-header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0;
+    background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.voice-modal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+}
+
+.voice-status-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+}
+
+.voice-logo-svg {
+    width: 120px;
+    height: 120px;
+}
+
+/* paused時はアニメーション停止 */
+.voice-modal-overlay.paused .voice-wave-path {
+    animation: none;
+}
+
+/* speaking時はアニメーション停止 */
+.voice-modal-overlay.speaking .voice-wave-path {
+    animation: none;
+}
+
+.voice-status-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.voice-transcript {
+    width: 100%;
+    max-width: 500px;
+    min-height: 100px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.voice-transcript p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #ffffff;
+    margin: 0;
+}
+
+.voice-modal-controls {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    background: #172039;
+    padding: 0.5rem;
+    border-radius: 100px;
+    box-shadow: 0 8px 12px rgb(11 14 22);
+}
+
+.btn-voice-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 64px;
+    height: 64px;
+}
+
+.btn-voice-control i {
+    font-size: 2rem;
+}
+
+.btn-pause {
+    background: #4a5568;
+    color: white;
+}
+
+.btn-end {
+    background: var(--error-color);
+    color: white;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .voice-modal-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .voice-modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .voice-logo-svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .btn-voice-control {
+        padding: 1.25rem 1.5rem;
+        min-width: 120px;
+    }
+
+    .btn-voice-control i {
+        font-size: 1.5rem;
+    }
+}
+
+.btn-close-image-modal {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background-color 0.2s;
+}
+
+.btn-close-image-modal:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============== Utility Classes for Mobile/Desktop Visibility ============== */
+.mobile-text {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: inline;
+    }
+}
+
+/* ============== Markdown Styles ============== */
+.markdown-body {
+    line-height: 1.7;
+    font-size: 1rem;
+    overflow-wrap: break-word;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.markdown-body h1 {
+    font-size: 1.6em;
+    padding-bottom: 0.3em;
+}
+
+.markdown-body h2 {
+    font-size: 1.4em;
+    padding-bottom: 0.3em;
+}
+
+.markdown-body h3 {
+    font-size: 1.25em;
+}
+
+.markdown-body h4 {
+    font-size: 1.1em;
+}
+
+.markdown-body p {
+    margin-bottom: 1em;
+}
+
+/* Lists */
+.markdown-body ul,
+.markdown-body ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+}
+
+.markdown-body li {
+    margin-bottom: 0.25em;
+}
+
+/* Links */
+.markdown-body a {
+    color: var(--link-color, #3b82f6);
+    text-decoration: none;
+}
+
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+
+/* Blockquotes */
+.markdown-body blockquote {
+    margin: 0 0 1em;
+    padding: 0 1em;
+    color: var(--text-muted);
+    border-left: 0.25em solid var(--border-color);
+}
+
+/* Tables */
+.markdown-body table {
+    width: 100%;
+    margin-bottom: 1em;
+    border-collapse: collapse;
+}
+
+.markdown-body th,
+.markdown-body td {
+    padding: 0.5em 0.75em;
+    border: 1px solid var(--border-color);
+}
+
+.markdown-body th {
+    font-weight: 600;
+    background-color: var(--bg-hover);
+    text-align: left;
+}
+
+/* Inline Code */
+.markdown-body :not(pre)>code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: rgba(175, 184, 193, 0.2);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+
+/* Code Blocks (handled by Prism but layout here) */
+.markdown-body pre {
+    padding: 1rem;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #1e1e1e !important;
+    /* Force dark background for code */
+    border-radius: 6px;
+    margin-bottom: 1em;
+}
+
+.markdown-body pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: #f8f8f2;
+    /* Default text color for Tomorrow Night */
+}
+
+/* Dark/Light mode overrides */
+[data-theme="light"] .markdown-body pre {
+    background-color: #2d2d2d !important;
+    /* Keep code blocks dark even in light mode for readability with Tomorrow Night theme */
+}
+
+/* Prism Overrides for consistency */
+code[class*="language-"],
+pre[class*="language-"] {
+    text-shadow: none !important;
+}
+
+/* ============== History Header ============== */
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem 0 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.history-header .history-label {
+    padding: 0;
+}
+
+.btn-search {
+    font-size: 0.85rem;
+    width: 28px;
+    height: 28px;
+    color: var(--text-muted);
+}
+
+.btn-search:hover {
+    color: var(--text-color);
+    background-color: var(--item-hover-bg);
+}
+
+.sidebar.collapsed .history-header {
+    display: none;
+}
+
+/* ============== Search Modal ============== */
+
+.search-modal {
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.search-input-icon {
+    color: var(--text-muted);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 1.4rem 1rem;
+    border: none;
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+    font-size: 1rem;
+    outline: none;
+}
+
+#searchInput::placeholder {
+    color: var(--text-muted);
+}
+
+#closeSearchBtn {
+    flex-shrink: 0;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#closeSearchBtn:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-color);
+}
+
+#closeSearchBtn i {
+    font-size: 1.2rem;
+}
+
+.search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+    max-height: 60vh;
+}
+
+.search-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.search-empty-state i {
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+.search-result-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius-md);
+    position: relative;
+}
+
+.search-result-item:hover {
+    background-color: var(--item-hover-bg);
+}
+
+.search-result-item>i {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: auto;
+    flex-shrink: 0;
+}
+
+.search-result-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.search-result-title {
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.85rem;
+}
+
+.search-result-preview {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result-preview mark {
+    background-color: rgba(var(--primary-color-rgb, 59, 130, 246), 0.3);
+    color: var(--text-color);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.search-no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.search-no-results i {
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+.search-shortcut-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.search-shortcut-hint kbd {
+    padding: 0.15rem 0.4rem;
+    background-color: var(--bg-hover);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.7rem;
+}
+
+@media (max-width: 768px) {
+    .search-modal {
+        width: 95%;
+        max-height: 70vh;
+    }
+
+    .search-modal-header {
+        padding: 0.75rem;
+    }
+
+    #searchInput {
+        font-size: 16px;
+    }
+}
+

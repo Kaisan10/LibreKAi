@@ -1,0 +1,600 @@
+/* ============== Skeleton Screens ============== */
+
+@keyframes skeleton-pulse {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.skeleton {
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    border-radius: 0.5rem;
+}
+
+.skeleton-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--user-profile-bg);
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    min-height: 48px;
+    /* Match approximate height */
+    box-sizing: border-box;
+}
+
+.sidebar.collapsed .skeleton-user-info {
+    justify-content: center;
+    background: transparent;
+    padding: 0.5rem;
+}
+
+.skeleton-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: linear-gradient(90deg,
+            var(--skeleton-base) 0%,
+            var(--skeleton-highlight) 50%,
+            var(--skeleton-base) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-user-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.sidebar.collapsed .skeleton-user-details {
+    display: none;
+}
+
+.skeleton-text {
+    height: 14px;
+    border-radius: 0.25rem;
+    background: linear-gradient(90deg,
+            var(--skeleton-base) 0%,
+            var(--skeleton-highlight) 50%,
+            var(--skeleton-base) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-text.large {
+    height: 16px;
+    width: 70%;
+}
+
+.skeleton-text.small {
+    height: 12px;
+    width: 40%;
+}
+
+.skeleton-history-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0px;
+    /* Match history-item margin-bottom if any, logic sets gap on parent usually */
+    height: 40px;
+    /* Approximate height of history item */
+    box-sizing: border-box;
+}
+
+/* sidebar collapsed handling for history skeletons if needed */
+.sidebar.collapsed .skeleton-history-item {
+    display: none;
+}
+
+.skeleton-history-text {
+    flex: 1;
+    height: 14px;
+    border-radius: 0.25rem;
+    background: linear-gradient(90deg,
+            var(--skeleton-base) 0%,
+            var(--skeleton-highlight) 50%,
+            var(--skeleton-base) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* ============== Image Upload & Vision ============== */
+
+.btn-image-upload {
+    cursor: pointer;
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.btn-image-upload:hover {
+    color: var(--primary-color);
+}
+
+.image-preview-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: var(--card-bg);
+    border-radius: 26px 26px 0 0;
+    border-bottom: none;
+    animation: slideUp 0.2s ease-out;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--border-color);
+    margin-bottom: -2px;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.image-preview-area.hidden {
+    display: none;
+}
+
+.image-preview-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.image-preview-area img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--bg-hover)
+}
+
+.btn-remove-image {
+    position: absolute;
+    top: 5px;
+    left: 72px;
+    background: var(--secondary-color);
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.image-preview-wrapper:hover .btn-remove-image {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-remove-image:hover {
+    background: var(--primary-color);
+}
+
+/* --- User message image --- */
+.user-message-image {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--radius-md);
+    display: block;
+    margin-top: 0.5rem;
+    background: var(--border-color);
+    padding: 6px;
+    border: solid 1px var(--border-color);
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-message-image:hover {
+    transform: scale(1.05);
+    box-shadow: var(--card-shadow);
+}
+
+/* Image placeholder for unavailable images in history */
+.image-placeholder {
+    width: 120px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    backdrop-filter: blur(4px);
+    border: 1px dashed var(--border-color);
+    cursor: default;
+}
+
+.image-placeholder::before {
+    content: '📷';
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+.image-placeholder:hover::before {
+    content: none;
+}
+
+/* ============== Inputs Dropdown ============== */
+.inputs-menu-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Inputs Dropdown - inherits from .dropdown, position overrides */
+.inputs-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 0.5rem;
+    min-width: 140px;
+    z-index: 50;
+}
+
+/* --- Data Settings Item Spacing --- */
+.data-setting-item {
+    margin-bottom: 1rem;
+}
+
+.share-settings-group {
+    margin-bottom: 1.5rem;
+}
+
+.data-setting-item:last-child {
+    margin-bottom: 0;
+}
+
+/* ============== Toggle Switch Styles ============== */
+.toggle-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-switch-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background-color: var(--bg-hover);
+    border-radius: 24px;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: white;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch-label input[type="checkbox"]:checked+.toggle-slider {
+    background-color: var(--primary-color);
+}
+
+.toggle-switch-label input[type="checkbox"]:checked+.toggle-slider::before {
+    transform: translateX(20px);
+}
+
+.toggle-switch-label:hover .toggle-slider {
+    opacity: 0.9;
+}
+
+.toggle-text {
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+button#toggleInputsBtn {
+    border-radius: 100px;
+    width: 32px;
+    height: 32px;
+}
+
+/* ============== Control Panel Dropdown ============== */
+.control-panel-container {
+    position: relative;
+    display: flex;
+}
+
+/* ============== Image Upload Dropdown ============== */
+.image-upload-dropdown {
+    min-width: 150px;
+}
+
+/* ============== AI Settings Panel ============== */
+.ai-settings-panel {
+    min-width: 280px;
+    max-width: 320px;
+}
+
+.ai-settings-panel .slider-group {
+    margin-bottom: 1rem;
+}
+
+.ai-settings-panel .slider-group:last-child {
+    margin-bottom: 0;
+}
+
+.ai-settings-panel .slider-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.ai-settings-panel .slider-label span:last-child {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.ai-settings-panel input[type="range"] {
+    width: 100%;
+    margin-bottom: 0.25rem;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.3);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.control-panel-content {
+    padding: 0.75rem;
+}
+
+.control-panel-dropdown .slider-group {
+    margin-bottom: 1rem;
+}
+
+.control-panel-dropdown .slider-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-panel-dropdown .slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.control-panel-dropdown .slider-label span:last-child {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.control-panel-dropdown input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.3);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin-bottom: 0.25rem;
+}
+
+.sub-menu-arrow {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-left: auto;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.has-sub-menu:hover .sub-menu-arrow {
+    transform: translateX(3px);
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+/* --- Sub-menu base (Hidden by default) --- */
+.has-sub-menu .sub-menu {
+    display: none;
+    z-index: 1000;
+}
+
+/* --- Desktop styles --- */
+@media (min-width: 769px) {
+    .has-sub-menu .sub-menu {
+        display: flex;
+        position: absolute;
+        left: calc(100% + 8px);
+        top: -5px;
+        min-width: 170px;
+        background-color: var(--user-profile-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        padding: 0.25rem 0.45rem 0.25rem 0.15rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-12px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .has-sub-menu:hover .sub-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .sub-menu-back-btn,
+    .desktop-hidden {
+        display: none !important;
+    }
+}
+
+.control-panel-dropdown .slider-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+
+
+/* --- Mobile sub-menu as a second bottom sheet --- */
+@media (max-width: 768px) {
+    .has-sub-menu.active .sub-menu {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: auto !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        height: auto !important;
+        max-height: 50vh !important;
+        background-color: var(--user-profile-bg) !important;
+        border-radius: 1.25rem 1.25rem 0 0 !important;
+        border: none !important;
+        border-top: 1px solid var(--border-color) !important;
+        box-shadow: var(--dropdown-shadow) !important;
+        padding: 1rem 0.75rem 0.5rem !important;
+        /* Matches standard bottom sheet padding */
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        z-index: 2005 !important;
+        /* Over standard bottom sheets */
+        animation: subMenuSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    @keyframes subMenuSlideUp {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    /* Handle bar for sub-menu bottom sheet - Match standard */
+    .has-sub-menu .sub-menu::after {
+        content: '';
+        position: absolute;
+        top: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 4px;
+        background-color: var(--text-muted);
+        border-radius: 2px;
+        opacity: 0.5;
+        z-index: 10;
+    }
+
+    .sub-menu-back-btn {
+        display: flex !important;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.25rem;
+        margin-top: 0.5rem;
+        /* Extra space for the handle bar */
+        margin-bottom: 0.5rem;
+        background: transparent;
+        border: none;
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    .sub-menu-back-btn i {
+        font-size: 0.85rem;
+    }
+
+    .has-sub-menu .sub-menu .dropdown-item {
+        border-left: none !important;
+        padding: 0.5rem 1rem !important;
+        font-size: 1rem !important;
+        margin-bottom: 0.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .desktop-hidden {
+        display: flex !important;
+    }
+}
+
+/* --- Mobile Bottom Sheet for Control Panel --- */
+@media (max-width: 768px) {
+    .control-panel-dropdown {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-bottom: 0;
+        min-width: 100%;
+        max-height: 60vh;
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 350;
+    }
+
+    .control-panel-dropdown:not(.hidden) {
+        transform: translateY(0);
+    }
+
+    .control-panel-content {
+        padding: 1rem;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+}

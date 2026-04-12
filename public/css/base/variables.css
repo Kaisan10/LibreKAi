@@ -1,0 +1,278 @@
+/* === KAi CSS List===
+- 1. Hide body until theme is applied
+- 2. Scrollbar
+- 3. Icon Alignment Fix
+- 4. Layout
+- 5. Sidebar
+- 6. Unified Dropdown
+- 7. Main Content
+- 8. Chat Area
+- 9. Suggestion Cards
+- 10. Input Area
+- 11. Loading & Error
+- 12. Legal Pages (Terms & Privacy)
+- 13. Modal
+- 14. Sidebar Overlay
+- 15. Utilities
+- 16. Responsive
+- 17. Pro Plan UI
+- 18. User Dropdown
+- 19. Pro Settings Modal
+- 20. Sliders
+- 21. Theme Selector
+- 22. Mode Selector
+- 23. Settings Utilities
+- 24. Pro Page Styles
+- 25. Skeleton Screens
+- 26. Image Upload & Vision
+- 27. Inputs Dropdown
+- 28. Toggle Switch Styles
+- 29. Control Panel Dropdown
+- 30. Image Upload Dropdown
+- 31. AI Settings Panel
+- 32. Control Panel Container
+- 33. Image Fullscreen Modal
+- 34. Voice Conversation Modal
+- 35. Utility Classes for Visibility
+- 36. Markdown Styles
+- 37. History Header
+- 38. Search Modal
+*/
+
+:root {
+    --bg-color: #0f172a;
+    --sidebar-bg: #1e293b;
+    --card-bg: #1e293bb3;
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --secondary-color: #64748b;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    --text-color: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 60px;
+    --header-height: 60px;
+    --bg-primary: #263249;
+    --bg-secondary: #32425c;
+    --radius-md: 0.75rem;
+    --radius-sm: 0.5rem;
+    --bg-hover: #3d506e;
+    --primary-color-active: #0d1224;
+    /* Slightly more vibrant blue for dark mode active state */
+
+    /* 追加変数（ダークモード用） */
+    --btn-login-bg: #354155;
+    --btn-login-hover: #46556e;
+    --pro-badge-bg: #161616;
+    --success-hover: #059669;
+    --success-light: #6ee7b7;
+    --cancel-color: #fbbf24;
+    --link-color: #7b8aff;
+    --code-bg: var(--sidebar-bg);
+    --item-hover-bg: rgba(255, 255, 255, 0.08);
+    --user-profile-bg: var(--bg-secondary);
+
+    /* スケルトンスクリーン用 */
+    --skeleton-base: rgba(255, 255, 255, 0.05);
+    --skeleton-highlight: rgba(255, 255, 255, 0.1);
+
+    /* ダークモード用の影 */
+    --modal-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    --dropdown-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --button-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    /* タグ用変数 (Dark Mode Default) */
+    --tag-bg-l: 18%;
+    --tag-text-l: 85%;
+    --tag-border-l: 30%;
+    --tag-hover-mix: white 12%;
+}
+
+/* ライトモード */
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --sidebar-bg: #eef2f6;
+    --card-bg: #ffffff;
+    --bg-primary: #ddeaf8ff;
+    --bg-secondary: #dfebf7;
+    --bg-hover: #e8eef4;
+    --text-color: #1a202c;
+    --text-muted: #4a5568;
+    --border-color: rgba(0, 0, 0, 0.1);
+
+    /* 追加変数（ライトモード用） */
+    --btn-login-bg: #edf2f7;
+    --btn-login-hover: #e2e8f0;
+    --pro-badge-bg: #f8fbff;
+    --link-color: #3b5998;
+    --code-bg: #f4f6f8;
+    --item-hover-bg: rgba(0, 0, 0, 0.06);
+    --user-profile-bg: #e8ecf0;
+
+    /* スケルトンスクリーン用（ライトモード） */
+    --skeleton-base: rgba(0, 0, 0, 0.08);
+    --skeleton-highlight: rgba(0, 0, 0, 0.12);
+
+    /* ライトモード用の影（より控えめ） */
+    --modal-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --dropdown-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --button-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    --primary-color-active: #0d1224;
+    /* Stronger blue for light mode active state */
+
+    /* ライトモード用の警告・キャンセル色（コントラスト改善） */
+    --warning-color: #c27803;
+    --cancel-color: #b45309;
+
+    /* タグ用変数 (Light Mode) */
+    --tag-bg-l: 94%;
+    --tag-text-l: 25%;
+    --tag-border-l: 82%;
+    --tag-hover-mix: white 20%;
+}
+
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* Hide body until theme is applied to prevent flash */
+html:not(.theme-ready) body {
+    opacity: 0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    height: 100dvh;
+    /* Use dynamic viewport on mobile browsers */
+    min-height: 100vh;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Allow selection for chat messages, inputs, and static page content */
+.message-content,
+.markdown-body,
+.static-page-container,
+.chat-title,
+.error-message,
+input,
+textarea,
+[contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Allow the page to size correctly with mobile browser chrome */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+        height: auto;
+        min-height: 100dvh;
+    }
+
+    .app-container {
+        height: auto;
+        min-height: 100dvh;
+    }
+}
+
+/* ============== Scrollbar ============== */
+
+/* タッチデバイス以外 */
+@media (hover: hover) and (pointer: fine) {
+
+    /* Webkit系（Chrome, Safari, Edge） */
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+        background: transparent !important;
+    }
+
+    ::-webkit-scrollbar-button {
+        display: none !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--secondary-color);
+        background-clip: content-box;
+        border: 2px solid transparent;
+        border-radius: 100px;
+        min-height: 48px;
+        transition: all 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--text-muted);
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent !important;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+        background: transparent !important;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: transparent !important;
+    }
+
+    /* サイドバーのスクロールバーをホバー時のみ表示 */
+    .sidebar-content::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        background-clip: content-box;
+        border: 2px solid transparent;
+        border-radius: 100px;
+        min-height: 48px;
+    }
+
+    .sidebar:hover .sidebar-content::-webkit-scrollbar-thumb {
+        background-color: var(--border-color);
+    }
+
+    .sidebar:hover .sidebar-content::-webkit-scrollbar-thumb:hover {
+        background-color: color-mix(in srgb, var(--border-color) 90%, var(--text-color));
+    }
+}
+
+/* ============== Icon Alignment Fix ============== */
+
+/* Ensure FontAwesome icons align properly with text at all zoom levels */
+i[class*="fa-"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* Ensure buttons and flex containers with icons maintain proper alignment */
+button i[class*="fa-"],
+.dropdown-item i[class*="fa-"],
+.history-item i[class*="fa-"],
+.footer-link i[class*="fa-"],
+.btn-new-chat i[class*="fa-"],
+a i[class*="fa-"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+

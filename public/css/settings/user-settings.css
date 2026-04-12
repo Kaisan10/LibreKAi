@@ -1,0 +1,767 @@
+/* ============== Pro Plan UI ============== */
+.pro-badge {
+    position: relative;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 6px;
+    background: var(--pro-badge-bg);
+    margin-left: 5px;
+}
+
+.pro-badge>span {
+    font-size: 0.85rem;
+    font-weight: bold;
+    background: linear-gradient(130deg, #BA0FFF, #016EFF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: brightness(1.8) drop-shadow(0 0 12px rgba(186, 15, 255, 1)) drop-shadow(0 0 4px rgba(1, 110, 255, 0.7));
+}
+
+/* ライトモードではPROバッジの影を控えめに */
+[data-theme="light"] .pro-badge>span {
+    filter: brightness(1.2) drop-shadow(0 0 4px rgba(186, 15, 255, 0.4)) drop-shadow(0 0 2px rgba(1, 110, 255, 0.2));
+}
+
+.btn-upgrade {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-upgrade:hover {
+    background-color: var(--success-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-upgrade:disabled {
+    background-color: var(--success-light);
+    cursor: not-allowed;
+}
+
+.pro-status {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--success-color);
+    font-weight: 600;
+    background-color: rgba(16, 185, 129, 0.1);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+/* ============== User Dropdown ============== */
+.user-info-sidebar {
+    position: fixed;
+    padding: 1rem;
+    margin-top: auto;
+    bottom: 0.1rem;
+    width: var(--sidebar-width);
+    z-index: 1100;
+    /* Ensure it stays above main content but allows dropdowns to show */
+}
+
+.user-info-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 -12px 10px var(--sidebar-bg);
+    clip-path: inset(-20px 0px 0px 0px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.user-profile-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: var(--user-profile-bg);
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    transform: none !important;
+    margin: 0 !important;
+    width: calc(var(--sidebar-width) - 2rem);
+}
+
+.user-profile-compact:hover {
+    background: color-mix(in srgb, var(--item-hover-bg) 50%, var(--user-profile-bg) 50%);
+}
+
+.user-avatar-small {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.user-details {
+    flex: 1;
+    min-width: 0;
+    transition: opacity 0.2s;
+}
+
+.sidebar.collapsed .user-details {
+    display: none;
+}
+
+.user-name-compact {
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-color);
+}
+
+.user-points-compact {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Ensure children don't shift on hover while preserving their margins (like PRO badge) */
+.user-profile-compact:hover .user-details,
+.user-profile-compact:hover .user-avatar-small,
+.user-profile-compact:hover .user-name-compact,
+.user-profile-compact:hover .user-points-compact {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Explicitly lock down the PRO badge margin */
+.user-profile-compact .pro-badge {
+    margin-left: 5px !important;
+}
+
+.sidebar.collapsed .user-profile-compact {
+    justify-content: center;
+    padding: 0.5rem;
+    background: transparent;
+    transform: none !important;
+    margin: 0 !important;
+    width: calc(var(--sidebar-collapsed-width) - 2rem) !important;
+}
+
+.sidebar.collapsed .user-info-sidebar {
+    width: var(--sidebar-collapsed-width) !important;
+}
+
+.sidebar.collapsed .tags-container,
+.sidebar.collapsed #pinnedContainer,
+.sidebar.collapsed .btn-show-more-history {
+    display: none !important;
+}
+
+.sidebar.collapsed .tag-item {
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+
+.menu-icon {
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+}
+
+/* --- User Dropdown - inherits from .dropdown --- */
+.user-dropdown {
+    min-width: 200px;
+    z-index: 400;
+}
+
+.user-dropdown.closing {
+    animation: dropdownSlideOut 0.15s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.9rem;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+    border-left: solid 3px var(--primary-color);
+    height: 2.25rem;
+}
+
+.dropdown-item.logout {
+    color: var(--error-color);
+    border-left-color: var(--error-color);
+}
+
+.dropdown-item.logout:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.dropdown-item.cancel-pro {
+    color: var(--cancel-color);
+    border-left-color: var(--cancel-color);
+}
+
+.dropdown-item.cancel-pro:hover {
+    background-color: rgba(251, 191, 36, 0.15);
+}
+
+.dropdown-item.disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.dropdown-item.disabled:hover {
+    background-color: transparent;
+}
+
+.dropdown-item.history-delete-item {
+    color: var(--error-color);
+    border-left-color: var(--error-color);
+}
+
+.dropdown-item.history-delete-item:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* ============== Modal Header (Unified) ============== */
+.modal-header {
+    padding: 1.25rem 1.5rem 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: transparent;
+    position: relative;
+    z-index: 10;
+}
+
+.modal-header h2 {
+    font-size: 1.1rem;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    line-height: 1.4;
+    word-break: break-all;
+    /* ensure long titles wrap */
+    flex: 1;
+    /* take available space */
+}
+
+.modal-header .btn-icon-only {
+    margin-left: 1rem;
+    flex-shrink: 0;
+}
+
+/* ============== Pro Settings Modal ============== */
+.settings-modal {
+    width: 90%;
+    max-width: 500px;
+    height: 480px;
+    max-height: 85vh;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Remove duplicated modal-header styles for settings */
+.settings-modal .modal-header {
+    border-bottom: none;
+    background: var(--bg-primary);
+}
+
+.settings-modal-body {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+/* --- Wide settings modal with category sidebar --- */
+.settings-modal-wide {
+    max-width: 700px;
+    height: 540px;
+}
+
+.settings-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- Frame decorations --- */
+.settings-frame-top-left {
+    position: absolute;
+    top: 0;
+    left: 160px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--bg-primary);
+    mask-image: radial-gradient(circle at 100% 100%, transparent 12px, black 12px);
+    -webkit-mask-image: radial-gradient(circle at 100% 100%, transparent 12px, black 12px);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.settings-frame-top-right {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--bg-primary);
+    mask-image: radial-gradient(circle at 0% 100%, transparent 12px, black 12px);
+    -webkit-mask-image: radial-gradient(circle at 0% 100%, transparent 12px, black 12px);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.settings-frame-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    bottom: 0;
+    background-color: var(--bg-primary);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.settings-frame-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 160px;
+    right: 0;
+    height: 8px;
+    background-color: var(--bg-primary);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.settings-frame-bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 130px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--bg-primary);
+    mask-image: radial-gradient(circle at 100% 0%, transparent 12px, black 12px);
+    -webkit-mask-image: radial-gradient(circle at 100% 0%, transparent 12px, black 12px);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.settings-frame-bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--bg-primary);
+    mask-image: radial-gradient(circle at 0% 0%, transparent 12px, black 12px);
+    -webkit-mask-image: radial-gradient(circle at 0% 0%, transparent 12px, black 12px);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.settings-sidebar {
+    width: 160px;
+    flex-shrink: 0;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background-color: var(--bg-primary);
+}
+
+.settings-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    text-align: left;
+    width: 100%;
+}
+
+.settings-tab:hover {
+    background-color: var(--item-hover-bg);
+    color: var(--text-color);
+}
+
+.settings-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.settings-tab i {
+    font-size: 0.9rem;
+    width: 1.25rem;
+    text-align: center;
+}
+
+.settings-content {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    background-color: var(--sidebar-bg);
+    position: relative;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    margin-right: 0.7rem;
+    margin-bottom: 0.7rem;
+    margin-top: 0.3rem;
+}
+
+/* --- Settings menu toggle for mobile --- */
+.settings-menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    margin: 0 auto 0.5rem auto;
+}
+
+.settings-menu-toggle:hover {
+    background-color: var(--item-hover-bg);
+    color: var(--text-color);
+}
+
+/* --- Settings section label --- */
+.settings-section-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.settings-panel {
+    display: none;
+}
+
+.settings-panel.active {
+    display: block;
+}
+
+.pro-required-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.pro-required-message i {
+    font-size: 2.5rem;
+    color: var(--warning-color);
+    margin-bottom: 1rem;
+}
+
+.pro-required-message h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.pro-required-message p {
+    font-size: 0.875rem;
+}
+
+/* Tablet range: Side-by-side but with mobile style tabs */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .settings-modal {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .settings-layout {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        transform: none !important;
+        height: calc(100% - 60px);
+    }
+
+    .settings-sidebar {
+        width: 280px !important;
+        flex-shrink: 0;
+        border-right: none !important;
+        background-color: var(--bg-primary);
+        overflow-y: auto;
+    }
+
+    .settings-content {
+        flex: 1;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        background-color: var(--bg-primary);
+        overflow-y: auto;
+    }
+
+    .settings-tab {
+        padding: 0.7rem 0.5rem;
+        border-radius: var(--radius-md);
+        justify-content: flex-start !important;
+        font-size: 1rem;
+        background-color: var(--bg-secondary);
+        margin: 0.4rem 1rem;
+        color: var(--text-color);
+        width: auto;
+        border: solid 1px var(--border-color);
+    }
+
+    .settings-tab.active {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .settings-tab i {
+        width: 28px;
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+    }
+
+    /* Hide back button on tablet since both sides are visible */
+    #settingsBackBtn {
+        display: none !important;
+    }
+
+    /* Hide frames on tablet */
+    .settings-frame-right,
+    .settings-frame-bottom,
+    .settings-frame-bottom-left,
+    .settings-frame-bottom-right,
+    .settings-frame-top-left,
+    .settings-frame-top-right {
+        display: none !important;
+    }
+}
+
+/* Mobile responsive for settings - sliding view */
+@media (max-width: 600px) {
+    .settings-modal {
+        overflow: hidden !important;
+        /* Contain the sliding layout */
+    }
+
+    .settings-modal-wide {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .settings-layout {
+        display: flex !important;
+        flex-direction: row !important;
+        /* Always row for sliding */
+        width: 200% !important;
+        /* Double width for side-by-side sliding */
+        height: calc(100% - 60px);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+    }
+
+    /* Shift layout to show content */
+    #settingsModal.content-active .settings-layout {
+        transform: translateX(-50%);
+    }
+
+    .settings-sidebar {
+        width: 50% !important;
+        /* Half of 200% layout = 100% of viewport */
+        height: 100%;
+        display: flex !important;
+        flex-direction: column;
+        overflow-y: auto;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .settings-content {
+        display: block !important;
+        /* Always block, controlled by transform */
+        width: 50% !important;
+        /* Half of 200% layout = 100% of viewport */
+        height: 100%;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        background-color: var(--bg-primary);
+        flex-shrink: 0;
+        overflow-y: auto;
+    }
+
+
+    .settings-tab {
+        padding: 0.7rem 0.5rem;
+        border-radius: var(--radius-md);
+        justify-content: flex-start !important;
+        font-size: 1rem;
+        background-color: var(--bg-secondary);
+        margin: 0.4rem 1rem;
+        color: var(--text-color);
+        width: auto;
+        border: solid 1px var(--border-color);
+    }
+
+    .settings-tab.active {
+        color: var(--text-color);
+        background-color: var(--bg-secondary);
+    }
+
+    .settings-tab:hover {
+        color: var(--text-color);
+        background-color: var(--bg-secondary);
+    }
+
+    .settings-tab span {
+        display: inline !important;
+    }
+
+    .settings-tab i {
+        width: 28px;
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+    }
+
+    .settings-menu-toggle {
+        display: none !important;
+    }
+
+    /* Hide frames on mobile */
+    .settings-frame-right,
+    .settings-frame-bottom,
+    .settings-frame-bottom-left,
+    .settings-frame-bottom-right,
+    .settings-frame-top-left {
+        display: none !important;
+    }
+
+    .settings-modal-header {
+        border-bottom: 1px solid var(--border-color);
+        padding: 0 1rem !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start !important;
+        height: 60px;
+        gap: 0;
+        /* Clear gap to prevent mysterious space when button is hidden */
+    }
+
+    .settings-modal-header h2 {
+        flex: 1;
+        margin: 0;
+        font-size: 1.1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 0.5rem;
+        /* Space from left edge or back button */
+    }
+
+    #settingsBackBtn {
+        display: none !important;
+        /* Default to none to take NO space */
+        transition: opacity 0.2s, width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 0;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        margin-right: 0;
+    }
+
+    /* Shown only when in detail content view on mobile */
+    #settingsModal.content-active #settingsBackBtn {
+        display: flex !important;
+        /* Override none through specificity and !important */
+        width: 26px;
+        opacity: 1;
+        pointer-events: auto;
+        margin-right: 0.25rem;
+        margin-left: 0 !important;
+    }
+
+    #closeSettingsBtn {
+        margin-left: auto;
+    }
+}
+
+.settings-section {
+    padding: 1rem;
+}
+
+.settings-section.settings-section-last {
+    padding-bottom: 1rem;
+}
+
+.settings-section h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+}
+
+.settings-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+

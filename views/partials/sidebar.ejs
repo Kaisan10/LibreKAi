@@ -1,0 +1,174 @@
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="logo-area">
+            <img src="/image/logo.webp" alt="KAi Logo" class="logo-img" id="logoImg" width="75" height="43">
+        </div>
+        <button id="toggleSidebarBtn" class="btn-icon-only" aria-label="サイドバーの切り替え">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <button id="newChatBtnSidebar" class="btn-new-chat">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <span class="btn-text">新しいチャット</span>
+    </button>
+
+    <div class="sidebar-content" id="sidebarContent">
+        <!-- Pinned Chats Container -->
+        <div class="pinned-container collapsible-section hidden" id="pinnedContainer">
+            <div class="history-header collapsible-header" data-section="pinned">
+                <div class="history-label">
+                    ピン止め済み
+                </div>
+                <button class="btn-icon-only btn-collapse" aria-label="折りたたみ">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="collapsible-content" id="pinnedList">
+                <!-- Pinned chats will appear here -->
+            </div>
+        </div>
+
+        <div class="history-container collapsible-section" id="historyContainer">
+            <div class="history-header collapsible-header" data-section="history">
+                <div class="history-label">会話履歴</div>
+                <div class="history-header-actions">
+                    <button id="openSearchBtn" class="btn-icon-only btn-search" aria-label="チャットを検索">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                    <button class="btn-icon-only btn-collapse" aria-label="折りたたみ">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="collapsible-content" id="historyListWrapper">
+                <div class="history-list" id="historyList">
+                    <!-- Skeleton screens shown while loading -->
+                    <div class="skeleton-history-item skeleton">
+                        <div class="skeleton-history-text skeleton"></div>
+                    </div>
+                    <div class="skeleton-history-item skeleton">
+                        <div class="skeleton-history-text skeleton"></div>
+                    </div>
+                    <div class="skeleton-history-item skeleton">
+                        <div class="skeleton-history-text skeleton"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags Container -->
+        <div class="tags-container collapsible-section hidden" id="tagsContainer">
+            <div class="history-header collapsible-header" data-section="tags">
+                <div class="history-label">
+                    <i class="fa-solid fa-tags"></i> タグ
+                </div>
+                <button class="btn-icon-only btn-collapse" aria-label="折りたたみ">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+            <div class="collapsible-content" id="tagsList">
+                <!-- Tags will appear here -->
+            </div>
+        </div>
+
+        <!-- Page Navigation Container (shown on static pages) -->
+        <div class="page-nav-container hidden" id="pageNavContainer">
+            <a href="/" class="page-nav-item-back spa-link" data-path="/">
+                <i class="fa-solid fa-comments"></i>
+                <span>チャットに戻る</span>
+            </a>
+            <div class="history-header">
+                <div class="history-label">ページ</div>
+            </div>
+            <div class="page-nav-list" id="pageNavList">
+                <a href="/pages" class="page-nav-item spa-link" data-path="/pages">
+                    <i class="fa-solid fa-file"></i>
+                    <span>ページ一覧</span>
+                </a>
+                <a href="/pages/privacy" class="page-nav-item spa-link" data-path="/pages/privacy">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>プライバシーポリシー</span>
+                </a>
+                <a href="/pages/terms" class="page-nav-item spa-link" data-path="/pages/terms">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <span>利用規約</span>
+                </a>
+                <div id="pageNavExtensions"></div>
+                <a href="/pages/embedded-sites" class="page-nav-item spa-link" data-path="/pages/embedded-sites">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>埋め込みサイト管理</span>
+                </a>
+                <a href="/pages/api" class="page-nav-item spa-link" data-path="/pages/api">
+                    <i class="fa-solid fa-code"></i>
+                    <span>API管理</span>
+                </a>
+                <a href="/pages/faq" class="page-nav-item spa-link" data-path="/pages/faq">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>よくある質問</span>
+                </a>
+                <a href="/blogs" class="page-nav-item spa-link" data-path="/blogs">
+                    <i class="fa-solid fa-blog"></i>
+                    <span>ブログ</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Independent Admin Navigation Section -->
+        <div class="page-nav-container hidden" id="adminSidebarSection">
+            <a href="/" class="page-nav-item-back spa-link" data-path="/">
+                <i class="fa-solid fa-comments"></i>
+                <span>チャットに戻る</span>
+            </a>
+            <div class="history-header">
+                <div class="history-label">管理者設定</div>
+            </div>
+            <div class="tag-search-container">
+                <i class="fa-solid fa-magnifying-glass tag-search-icon"></i>
+                <input type="text" id="admin-sidebar-search" class="tag-search-input" placeholder="検索...">
+            </div>
+            <div class="page-nav-list" id="adminPageNavList">
+                <a href="/admin" class="page-nav-item spa-link" data-path="/admin">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <span>ダッシュボード</span>
+                </a>
+                <a href="/admin/models" class="page-nav-item spa-link" data-path="/admin/models">
+                    <i class="fa-solid fa-gears"></i>
+                    <span>モデル管理</span>
+                </a>
+                <a href="/admin/users" class="page-nav-item spa-link" data-path="/admin/users">
+                    <i class="fa-solid fa-users"></i>
+                    <span>ユーザー</span>
+                </a>
+                <a href="/admin/basic" class="page-nav-item spa-link" data-path="/admin/basic">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>基本設定</span>
+                </a>
+                <a href="/admin/plugins" class="page-nav-item spa-link" data-path="/admin/plugins">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span>プラグイン</span>
+                </a>
+                <a href="/admin/auth" class="page-nav-item spa-link" data-path="/admin/auth">
+                    <i class="fa-solid fa-key"></i>
+                    <span>ログインと認証</span>
+                </a>
+                <a href="/admin/features" class="page-nav-item spa-link" data-path="/admin/features">
+                    <i class="fa-solid fa-toggle-on"></i>
+                    <span>機能</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="user-info-sidebar" id="userInfoSidebar">
+            <!-- Skeleton screen shown while loading -->
+            <div class="skeleton-user-info">
+                <div class="skeleton-avatar skeleton"></div>
+                <div class="skeleton-user-details">
+                    <div class="skeleton-text large skeleton"></div>
+                    <div class="skeleton-text small skeleton"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

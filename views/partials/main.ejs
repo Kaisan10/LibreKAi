@@ -1,0 +1,254 @@
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header for Mobile / Title -->
+            <header class="mobile-header">
+                <button id="mobileMenuBtn" class="btn-icon-only" aria-label="メニューを開く">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="mobile-header-title-container">
+                    <h1 id="mobileChatTitle" class="mobile-chat-title"></h1>
+                    <button id="mobileHeaderMenuBtn" class="btn-header-menu hidden" aria-label="セッションメニュー">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="mobile-header-right">
+                    <button id="shareBtnForkMobile" class="btn-icon-only hidden" aria-label="このチャットをコピー"
+                        title="チャットをコピーして続きを話す">
+                        <i class="fa-solid fa-copy"></i>
+                    </button>
+                    <button id="shareBtnMobile" class="btn-icon-only hidden" aria-label="チャットを共有" title="共有">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Desktop Header Area (Title & Actions) -->
+            <header class="desktop-chat-header hidden" id="desktopChatHeader">
+                <div class="chat-title-area">
+                    <div class="chat-title-group">
+                        <p id="chatTitle" class="chat-title"></p>
+                        <button id="desktopHeaderMenuBtn" class="btn-header-menu hidden" aria-label="セッションメニュー">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div id="desktopTagsDisplay" class="desktop-tags-display"></div>
+                    <!-- Tag Dropdown Menu -->
+                    <div id="tagDropdown" class="dropdown tag-dropdown hidden">
+                        <div class="tag-dropdown-search">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" id="tagDropdownSearch" placeholder="タグを検索...">
+                        </div>
+                        <div class="tag-dropdown-selected" id="tagDropdownSelected">
+                            <p class="tag-dropdown-label">選択中のタグ</p>
+                            <div id="tagDropdownSelectedList" class="tag-dropdown-list">
+                                <!-- Selected tags -->
+                            </div>
+                        </div>
+                        <div class="tag-dropdown-available">
+                            <p class="tag-dropdown-label">利用可能なタグ</p>
+                            <div id="tagDropdownAvailableList" class="tag-dropdown-list">
+                                <!-- Available tags -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-actions-area">
+                    <button id="shareBtnForkDesktop" class="btn-fork hidden" aria-label="このチャットをコピーして続きを話す">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>このチャットをコピーして続きを話す</span>
+                    </button>
+                    <button id="shareBtnDesktop" class="btn-share" aria-label="チャットを共有">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span>共有</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Static Page Area (Shown for /pages/*) -->
+            <div id="staticPageContainer" class="static-page-container hidden">
+                <div class="skeleton-static-page">
+                    <div class="skeleton-header skeleton"></div>
+                    <div class="skeleton-line skeleton"></div>
+                    <div class="skeleton-line skeleton"></div>
+                    <div class="skeleton-line medium skeleton"></div>
+                    <div class="skeleton-line skeleton"></div>
+                    <div class="skeleton-line short skeleton"></div>
+                    <br>
+                    <div class="skeleton-line skeleton"></div>
+                    <div class="skeleton-line medium skeleton"></div>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div id="chatContainer" class="chat-container">
+                <!-- Welcome Message -->
+                <div class="welcome-message">
+                    <div class="welcome-logo">
+                        <img src="/image/logo2.webp" alt="KAi Logo" class="logo-img" id="logo2Img" fetchpriority="high"
+                            width="319" height="42">
+                    </div>
+                    <h2>何かお手伝いしましょうか？</h2>
+                </div>
+
+                <!-- Messages will appear here -->
+                <div id="messagesList" class="messages-list" role="log" aria-live="polite" aria-label="チャット履歴"></div>
+
+                <!-- Loading Indicator -->
+                <div id="loading" class="hidden" role="status" aria-live="polite" aria-label="読み込み中">
+                    <div class="spinner" aria-hidden="true"></div>
+                    <p id="loadingText">考え中...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message hidden" role="alert">
+                    <div class="error-content">
+                        <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+                        <div class="error-text">
+                            <strong id="errorTitle">エラー</strong>
+                            <p id="errorDescription"></p>
+                        </div>
+                    </div>
+                    <div id="errorActions" class="error-actions hidden">
+                        <button id="retryBtn" class="btn-retry" aria-label="再試行"><i class="fa-solid fa-rotate-right"
+                                aria-hidden="true"></i> 再試行</button>
+                        <button id="dismissErrorBtn" class="btn-dismiss" aria-label="エラーを閉じる"><i
+                                class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area-wrapper">
+                <!-- Image Preview Area -->
+                <div id="imagePreviewArea" class="image-preview-area hidden">
+                    <div class="image-preview-wrapper">
+                        <img id="imagePreview" src="" alt="プレビュー">
+                        <button id="removeImageBtn" class="btn-remove-image" aria-label="画像を削除">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="input-area">
+                    <div class="textarea-container">
+                        <textarea id="questionInput" placeholder="メッセージを送信..." maxlength="200" aria-label="質問を入力"
+                            rows="1"></textarea>
+                        <div id="markdownPreview" class="markdown-preview hidden"></div>
+                    </div>
+                    <div class="input-controls">
+                        <div class="input-controls-left">
+                            <button id="newQuestionBtn" class="btn-icon-only hidden" aria-label="新しいチャット">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+
+                            <!-- Image Upload Dropdown -->
+                            <div class="image-upload-container">
+                                <button id="toggleImageUploadBtn" class="btn-icon-only" aria-label="画像をアップロード">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <div id="imageUploadDropdown" class="dropdown image-upload-dropdown hidden">
+                                    <button class="dropdown-item" id="selectImageBtn">
+                                        <i class="fa-solid fa-image"></i> 画像
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="file" id="imageInput" accept="image/*" hidden>
+
+                            <!-- Parameter Control Dropdown (Pro Only) -->
+                            <div class="control-panel-container" id="controlPanelContainer" style="display: none;">
+                                <button id="toggleControlPanelBtn" class="btn-icon-only" aria-label="パラメータ調整">
+                                    <i class="fa-solid fa-sliders"></i>
+                                </button>
+                                <div id="selectedToolsContainer" class="selected-tools-container"></div>
+                                <div id="controlPanelDropdown" class="dropdown control-panel-dropdown hidden">
+                                    <button class="dropdown-item" id="openAiSettingsBtn">
+                                        <i class="fa-solid fa-robot"></i> AI設定
+                                    </button>
+                                    <div class="dropdown-item has-sub-menu" id="modelSelectionMenuItem">
+                                        <i class="fa-solid fa-microchip"></i> <span>モデル: KAi C2.2</span>
+                                        <i class="fa-solid fa-chevron-right sub-menu-arrow"></i>
+                                        <div class="sub-menu">
+                                            <button class="sub-menu-back-btn desktop-hidden">
+                                                <i class="fa-solid fa-chevron-left"></i> 戻る
+                                            </button>
+                                            <button class="dropdown-item" data-model="normal">
+                                                KAi C2.2 <i class="fa-solid fa-check model-check"></i>
+                                            </button>
+                                            <button class="dropdown-item" data-model="tinyswallow">
+                                                TinySwallow 1.5B <i class="fa-solid fa-check model-check hidden"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-item has-sub-menu" id="toolSelectionMenuItem">
+                                        <i class="fa-solid fa-screwdriver-wrench"></i> <span>ツール</span>
+                                        <i class="fa-solid fa-chevron-right sub-menu-arrow"></i>
+                                        <div class="sub-menu">
+                                            <button class="sub-menu-back-btn desktop-hidden">
+                                                <i class="fa-solid fa-chevron-left"></i> 戻る
+                                            </button>
+                                            <div id="recentToolsList">
+                                                <!-- Recently used tools will be injected by script.js -->
+                                                <div class="sub-menu-info">最近使ったツールはありません</div>
+                                            </div>
+                                            <div class="sub-menu-divider"></div>
+                                            <button class="dropdown-item" id="openToolSelectionBtn">
+                                                <i class="fa-solid fa-search"></i> ツールを探す
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Settings Panel (shown when AI設定 is clicked) -->
+                            <div id="aiSettingsPanel" class="dropdown ai-settings-panel hidden">
+                                <div class="control-panel-content">
+                                    <div class="slider-group">
+                                        <div class="slider-label">
+                                            <span>Temperature</span>
+                                            <span id="controlTempValue">0.3</span>
+                                        </div>
+                                        <input type="range" id="controlTempSlider" min="0" max="2" step="0.1"
+                                            value="0.3">
+                                        <div class="slider-desc">低いと論理的、高いと創造的</div>
+                                    </div>
+                                    <div class="slider-group">
+                                        <div class="slider-label">
+                                            <span>Top P</span>
+                                            <span id="controlTopPValue">0.85</span>
+                                        </div>
+                                        <input type="range" id="controlTopPSlider" min="0" max="1" step="0.05"
+                                            value="0.85">
+                                        <div class="slider-desc">多様性の調整</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-controls-right">
+                            <!-- Voice Input Button -->
+                            <button id="voiceInputBtn" class="btn-icon-only btn-voice-input" aria-label="通話" title="通話">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>通話</span>
+                            </button>
+                            <!-- Submit Button -->
+                            <button id="submitBtn" disabled aria-label="送信" class="btn-send">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                            <!-- Cancel Button -->
+                            <button id="cancelBtn" class="btn-cancel hidden" aria-label="停止">
+                                <i class="fa-solid fa-stop"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-footer">
+                    <span role="note" aria-label="免責事項">KAiは正確でない場合があります、重要な情報は確認してください。</span>
+                </div>
+            </div>
+
+            <!-- Suggestion Cards (filled from basic settings via /api/app/config) -->
+            <div class="suggestion-cards" id="suggestionCards">
+                <div class="suggestion-top" id="suggestionCardsTop"></div>
+                <div class="suggestion-bottom" id="suggestionCardsBottom"></div>
+            </div>
+        </main>
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+        <div id="dropdownOverlay" class="dropdown-overlay"></div>
