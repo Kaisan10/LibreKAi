@@ -66,4 +66,4 @@ blogs/*.md
 llama.cpp
 
 # まあまあ
-.claude/agents
+.claude/
