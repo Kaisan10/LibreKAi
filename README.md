@@ -71,18 +71,9 @@ npm start
 
 The server will be running at `http://localhost:3008`.
 
-### 6. Start the LLM Server (Separate Terminal)
+### 6. Additional Web Configuration
 
-```bash
-# For llama.cpp
-./scripts/start-llama.sh
-```
-
-Alternatively, start your preferred LLM server.
-
-### 7. Additional Web Configuration
-
-Access `http://localhost:3008/settings` in your browser to finalize additional configurations as needed.
+Access `http://localhost:3008/admin/models` in your browser to add models.
 
 ## 📖 Documentation
 
@@ -105,7 +96,7 @@ Essential settings required to boot the application:
 
 ### Web Settings (Recommended/Operational)
 
-Settings manageable via the `/settings` page:
+Settings manageable via the `/admin` page:
 
 - External API integrations (Discourse, point systems, etc.)
 - URL shortener settings
@@ -237,18 +228,9 @@ npm start
 
 サーバーは `http://localhost:3008` で起動します。
 
-### 6. LLMサーバーを起動（別ターミナル）
+### 6. Webインターフェースで追加設定
 
-```bash
-# llama.cppの場合
-./scripts/start-llama.sh
-```
-
-または、お好みのLLMサーバーを起動してください。
-
-### 7. Webインターフェースで追加設定
-
-ブラウザで `http://localhost:3008/settings` にアクセスし、必要に応じて追加設定を行います。
+ブラウザで `http://localhost:3008/admin/models` にアクセスし、モデルを追加してください。
 
 ## 📖 ドキュメント
 
@@ -271,7 +253,7 @@ LibreKAiは2つの方法で設定を管理します：
 
 ### Web設定（推奨・運用時）
 
-`/settings` ページから管理できる設定：
+`/admin/` ページから管理できる設定：
 
 - 外部API連携（Discourse、ポイントシステムなど）
 - 短縮URL設定
