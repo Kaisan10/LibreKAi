@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "vite build",
+    "setup": "node bin/setup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

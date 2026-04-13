@@ -91,4 +91,4 @@ trigger: always_on
 
 ## フォルダについて
 
-- scripts : githubには公開されないpythonなどを使う場所
+- scripts : githubには公開されない一時スクリプトを置く場所

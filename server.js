@@ -206,6 +206,7 @@ const startServer = async () => {
         pluginManager.loadAllPlugins();
         PointsService = pluginManager.getPointsService();
         pluginManager.registerAuthRoutes(app);
+        pluginManager.registerProRoutes(app);
 
         // 3b. Initial dependency check and interval (plugin-driven health checks)
         await checkDependencyServices();
@@ -3078,7 +3079,6 @@ app.get('/api/proxy/avatar', async (req, res) => {
     }
 });
 // Pro Plan API routes (subscribe / cancel / metadata) はポイントプラグインが registerProRoutes() で登録する
-pluginManager.registerProRoutes(app);
 
 // Points Deduction API (Removed - using external service)
 // app.post('/api/services/points/deduct', ...);
