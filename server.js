@@ -4173,7 +4173,7 @@ const softmax = (logits) => {
 };
 
 // Serve stored images
-app.get('/api/images/:filename', (req, res) => {
+app.get('/api/images/:filename', async (req, res) => {
     const { filename } = req.params;
     const { w, h } = req.query; // Width and height for placeholder fallbacks
 
@@ -4182,12 +4182,15 @@ app.get('/api/images/:filename', (req, res) => {
         return res.status(400).send('Invalid filename');
     }
 
-    const filePath = ImageStore.getImagePath(filename);
+    try {
+        const image = await ImageStore.getImage(filename);
 
-    if (filePath) {
-        // File exists, serve it
-        res.sendFile(filePath);
-    } else {
+        if (image && image.data) {
+            // Found in DB, serve the binary data
+            res.setHeader('Content-Type', image.mime_type || 'image/jpeg');
+            return res.send(image.data);
+        }
+
         // File does not exist (deleted or never existed)
         // Return a placeholder SVG
         const width = parseInt(w) || 800;
@@ -4206,6 +4209,9 @@ app.get('/api/images/:filename', (req, res) => {
 
         res.setHeader('Content-Type', 'image/svg+xml');
         res.send(svg);
+    } catch (err) {
+        console.error(`Error serving image ${filename}:`, err);
+        res.status(500).send('Server Error');
     }
 });
 

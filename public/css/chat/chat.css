@@ -552,6 +552,11 @@
     display: flex;
 }
 
+.message-image>img {
+    width: 8rem;
+}
+
+
 /* ============== Suggestion Cards ============== */
 
 .suggestion-cards {

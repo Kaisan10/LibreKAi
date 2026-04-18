@@ -879,6 +879,10 @@ document.addEventListener('DOMContentLoaded', () => {
         imageModalImg.src = '';
     };
 
+    // Expose to global for chat-ui.js
+    window.openImageModal = openImageModal;
+    window.closeImageModal = closeImageModal;
+
     if (closeImageModalBtn) {
         closeImageModalBtn.addEventListener('click', closeImageModal);
     }

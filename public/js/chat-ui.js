@@ -32,6 +32,17 @@ export const initChatUI = (elements, deps) => {
         configureMarked();
         markedConfigured = true;
     }
+
+    // Add delegated click listener for images
+    if (messagesList) {
+        messagesList.addEventListener('click', (e) => {
+            const img = e.target.closest('.message-content img');
+            if (img && window.openImageModal) {
+                e.stopPropagation();
+                window.openImageModal(img.src);
+            }
+        });
+    }
 };
 
 const configureMarked = () => {
@@ -130,21 +141,7 @@ export const appendUserMessage = (text, imageUrl = null, metadata = null) => {
         img.alt = 'Uploaded image';
         img.loading = 'lazy';
 
-        // Open image modal on click
-        img.addEventListener('click', (e) => {
-            e.stopPropagation();
-            // We need openImageModal? 
-            // It is in logic layer or ui?
-            // If it's pure UI, we can import it or pass it.
-            // Let's assume it's global or passed. 
-            // Actually, openImageModal was top-level in index.js.
-            // I should export logic to open it?
-            // User click -> openImageModal.
-            // I'll emit event or call dependency?
-            // I'll leave it for now (or pass as dependency).
-            // For now, I'll use window.openImageModal if available, or just ignore.
-            if (window.openImageModal) window.openImageModal(imageUrl);
-        });
+        // Image modal is now handled by delegation in initChatUI
 
         imgContainer.appendChild(img);
         contentDiv.appendChild(imgContainer);
